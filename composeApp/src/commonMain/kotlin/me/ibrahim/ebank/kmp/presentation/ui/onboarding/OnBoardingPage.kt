@@ -1,13 +1,10 @@
 package me.ibrahim.ebank.kmp.presentation.ui.onboarding
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,15 +19,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import e_bank_kmp.composeapp.generated.resources.Res
-import e_bank_kmp.composeapp.generated.resources.mobile_banking
 import e_bank_kmp.composeapp.generated.resources.onboarding1
 import e_bank_kmp.composeapp.generated.resources.onboarding2
 import e_bank_kmp.composeapp.generated.resources.onboarding_desc_1
@@ -38,7 +32,6 @@ import e_bank_kmp.composeapp.generated.resources.onboarding_desc_2
 import e_bank_kmp.composeapp.generated.resources.onboarding_title_1
 import e_bank_kmp.composeapp.generated.resources.onboarding_title_2
 import e_bank_kmp.composeapp.generated.resources.skip
-import me.ibrahim.ebank.kmp.core.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.core.ThemeColor_DarkGrey
 import me.ibrahim.ebank.kmp.core.ThemeColor_Grey
 import me.ibrahim.ebank.kmp.presentation.composables.Indicators
