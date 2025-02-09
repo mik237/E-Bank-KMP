@@ -6,6 +6,8 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
+import me.ibrahim.ebank.kmp.presentation.decompose.splash.SplashComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.splash.SplashComponentImpl
 
 class EBankRootImpl(
     componentContext: ComponentContext
@@ -25,9 +27,15 @@ class EBankRootImpl(
 
     private fun createChild(config: MainNavigationConfig, context: ComponentContext): EBankRoot.MainDestinationChild {
         return when (config) {
-            MainNavigationConfig.Splash -> EBankRoot.MainDestinationChild.Splash
+            MainNavigationConfig.Splash -> EBankRoot.MainDestinationChild.Splash(component = buildSplashComponent(context))
             MainNavigationConfig.OnBoarding -> EBankRoot.MainDestinationChild.OnBoarding
         }
+    }
+
+    private fun buildSplashComponent(context: ComponentContext): SplashComponent {
+        return SplashComponentImpl(splashFinished = { onBoarded ->
+
+        })
     }
 
     @Serializable
