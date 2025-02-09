@@ -49,6 +49,8 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.decompose.extensions.compose)
             implementation(libs.kotlinx.serialization.json)
+
+            implementation(libs.coil.compose)
         }
     }
 }
