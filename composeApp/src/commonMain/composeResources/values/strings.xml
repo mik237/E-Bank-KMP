@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">E-Bank-KMP</string>
+    <string name="onboarding_title_1">Manage Your\nPayments with</string>
+    <string name="onboarding_title_2">A loan for every\ndream with</string>
+    <string name="onboarding_desc_1">A convenient way to manage your money securely from mobile device.</string>
+    <string name="onboarding_desc_2">A loan facility that provides you financial assistance whenever you need.</string>
+    <string name="mobile_banking">mobile banking</string>
+    <string name="skip">Skip</string>
+</resources>
