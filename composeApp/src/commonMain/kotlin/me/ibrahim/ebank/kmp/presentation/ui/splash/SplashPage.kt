@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import e_bank_kmp.composeapp.generated.resources.Res
 import e_bank_kmp.composeapp.generated.resources.bg_gradiant
+import me.ibrahim.ebank.kmp.core.ThemeColor_DarkGrey
 import me.ibrahim.ebank.kmp.presentation.decompose.splash.SplashComponent
 import org.jetbrains.compose.resources.painterResource
 
@@ -32,7 +33,7 @@ fun SplashPage(
 
     Box(
         modifier = Modifier.fillMaxSize()
-            .background(color = Color(0xFF23303B))
+            .background(color = Color.ThemeColor_DarkGrey)
     ) {
         Image(
             modifier = Modifier
