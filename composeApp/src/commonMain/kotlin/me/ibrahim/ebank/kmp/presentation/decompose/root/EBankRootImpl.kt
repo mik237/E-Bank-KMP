@@ -7,6 +7,8 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
+import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.splash.SplashComponent
@@ -32,25 +34,33 @@ class EBankRootImpl(
         return when (config) {
             MainNavigationConfig.Splash -> EBankRoot.MainDestinationChild.Splash(component = buildSplashComponent(context))
             MainNavigationConfig.OnBoarding -> EBankRoot.MainDestinationChild.OnBoarding(component = buildOnBoardingComponent(context))
+            MainNavigationConfig.Login -> EBankRoot.MainDestinationChild.Login(component = buildLoginComponent(context))
         }
     }
 
     private fun buildSplashComponent(context: ComponentContext): SplashComponent {
         return SplashComponentImpl(splashFinished = { onBoarded ->
-            if (onBoarded.not()) {
-                navigation.replaceCurrent(MainNavigationConfig.OnBoarding)
-            }
+            if (onBoarded.not()) navigation.replaceCurrent(MainNavigationConfig.OnBoarding)
+            else navigation.replaceCurrent(MainNavigationConfig.Login)
         })
     }
 
     private fun buildOnBoardingComponent(context: ComponentContext): OnBoardingComponent {
-        return OnBoardingComponentImpl(skipBoarding = {})
+        return OnBoardingComponentImpl(skipBoarding = {
+            navigation.replaceCurrent(MainNavigationConfig.Login)
+        })
     }
+
+    private fun buildLoginComponent(context: ComponentContext): LoginComponent {
+        return LoginComponentImpl(componentContext = context)
+    }
+
 
     @Serializable
     sealed class MainNavigationConfig {
         @Serializable
         data object Splash : MainNavigationConfig()
         data object OnBoarding : MainNavigationConfig()
+        data object Login : MainNavigationConfig()
     }
 }

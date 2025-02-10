@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import e_bank_kmp.composeapp.generated.resources.Res
 import e_bank_kmp.composeapp.generated.resources.mobile_banking
-import me.ibrahim.ebank.kmp.core.ThemeColor_Blue
-import me.ibrahim.ebank.kmp.core.ThemeColor_Grey
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
