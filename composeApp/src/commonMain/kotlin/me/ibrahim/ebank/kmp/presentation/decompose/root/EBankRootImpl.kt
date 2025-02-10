@@ -53,7 +53,7 @@ class EBankRootImpl(
 
     private fun buildOnBoardingComponent(context: ComponentContext): OnBoardingComponent {
         return OnBoardingComponentImpl(skipBoarding = {
-            navigation.replaceCurrent(MainNavigationConfig.Login)
+            navigation.replaceCurrent(MainNavigationConfig.Home)
         })
     }
 
