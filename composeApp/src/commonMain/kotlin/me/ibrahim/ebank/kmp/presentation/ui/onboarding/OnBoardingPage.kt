@@ -32,8 +32,8 @@ import e_bank_kmp.composeapp.generated.resources.onboarding_desc_2
 import e_bank_kmp.composeapp.generated.resources.onboarding_title_1
 import e_bank_kmp.composeapp.generated.resources.onboarding_title_2
 import e_bank_kmp.composeapp.generated.resources.skip
-import me.ibrahim.ebank.kmp.core.ThemeColor_DarkGrey
-import me.ibrahim.ebank.kmp.core.ThemeColor_Grey
+import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 import me.ibrahim.ebank.kmp.presentation.composables.Indicators
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponent
 import org.jetbrains.compose.resources.painterResource

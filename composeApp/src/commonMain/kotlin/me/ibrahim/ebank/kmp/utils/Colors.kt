@@ -1,4 +1,4 @@
-package me.ibrahim.ebank.kmp.core
+package me.ibrahim.ebank.kmp.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
