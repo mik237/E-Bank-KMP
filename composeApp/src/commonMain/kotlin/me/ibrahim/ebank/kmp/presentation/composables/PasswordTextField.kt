@@ -50,7 +50,9 @@ fun PasswordTextField(
         keyboardActions = KeyboardActions(onDone = {}),
         colors = TextFieldDefaults.colors(
             focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
+            unfocusedIndicatorColor = Color.Transparent,
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White
         ),
         placeholder = {
             Text(

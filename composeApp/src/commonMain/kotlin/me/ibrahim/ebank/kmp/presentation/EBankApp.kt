@@ -8,6 +8,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import me.ibrahim.ebank.kmp.presentation.decompose.root.EBankRoot
 import me.ibrahim.ebank.kmp.presentation.ui.login.LoginPage
 import me.ibrahim.ebank.kmp.presentation.ui.onboarding.OnBoardingPage
+import me.ibrahim.ebank.kmp.presentation.ui.signup.SignupPage
 import me.ibrahim.ebank.kmp.presentation.ui.splash.SplashPage
 
 @Composable
@@ -22,6 +23,7 @@ fun EBankApp(root: EBankRoot) {
                 is EBankRoot.MainDestinationChild.Splash -> SplashPage(child.component)
                 is EBankRoot.MainDestinationChild.OnBoarding -> OnBoardingPage(child.component)
                 is EBankRoot.MainDestinationChild.Login -> LoginPage(child.component)
+                is EBankRoot.MainDestinationChild.Signup -> SignupPage(child.component)
             }
         }
     }

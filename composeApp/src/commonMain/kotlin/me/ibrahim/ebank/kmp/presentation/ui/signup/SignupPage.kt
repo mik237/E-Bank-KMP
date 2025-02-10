@@ -1,4 +1,4 @@
-package me.ibrahim.ebank.kmp.presentation.ui.login
+package me.ibrahim.ebank.kmp.presentation.ui.signup
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,13 +15,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Fingerprint
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -36,38 +34,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import e_bank_kmp.composeapp.generated.resources.Res
-import e_bank_kmp.composeapp.generated.resources.dont_have_an_account
+import e_bank_kmp.composeapp.generated.resources.already_have_an_account
+import e_bank_kmp.composeapp.generated.resources.cnic
+import e_bank_kmp.composeapp.generated.resources.create_your_account
+import e_bank_kmp.composeapp.generated.resources.email
 import e_bank_kmp.composeapp.generated.resources.fingerprint
-import e_bank_kmp.composeapp.generated.resources.forgot_username_or_password
 import e_bank_kmp.composeapp.generated.resources.login
-import e_bank_kmp.composeapp.generated.resources.login_to_your_account
-import e_bank_kmp.composeapp.generated.resources.password
+import e_bank_kmp.composeapp.generated.resources.mobile_number
 import e_bank_kmp.composeapp.generated.resources.sign_up
 import e_bank_kmp.composeapp.generated.resources.username
 import me.ibrahim.ebank.kmp.presentation.composables.CustomButton
 import me.ibrahim.ebank.kmp.presentation.composables.InteractionBlocker
 import me.ibrahim.ebank.kmp.presentation.composables.PasswordTextField
+import me.ibrahim.ebank.kmp.presentation.composables.SpannableText
 import me.ibrahim.ebank.kmp.presentation.composables.TopEndCircle
-import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponent
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun LoginPage(component: LoginComponent) {
+fun SignupPage(component: SignupComponent) {
 
     val state by component.state.subscribeAsState()
 
     InteractionBlocker(
         modifier = Modifier.fillMaxSize(),
-        blockCondition = state.uiState is LoginUiState.Logging
+        blockCondition = state.uiState is SignupUiState.SigningUp
     ) {
         Box(
             modifier = Modifier.fillMaxSize()
@@ -86,7 +84,7 @@ fun LoginPage(component: LoginComponent) {
                     .statusBarsPadding()
             ) {
                 Text(
-                    text = stringResource(Res.string.login_to_your_account),
+                    text = stringResource(Res.string.create_your_account),
                     style = TextStyle(
                         fontSize = 26.sp,
                         fontWeight = FontWeight.Normal,
@@ -100,7 +98,7 @@ fun LoginPage(component: LoginComponent) {
                     modifier = Modifier.fillMaxWidth(),
                     shape = MaterialTheme.shapes.medium,
                     onValueChange = {
-                        component.onAction(LoginUiAction.TypeUsername(username = it))
+                        component.onAction(SignupUiAction.TypeUsername(username = it))
                     },
                     colors = TextFieldDefaults.colors(
                         focusedIndicatorColor = Color.Transparent,
@@ -119,11 +117,110 @@ fun LoginPage(component: LoginComponent) {
                     }
                 )
 
+                TextField(
+                    value = state.email,
+                    maxLines = 1,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = MaterialTheme.shapes.medium,
+                    onValueChange = {
+                        component.onAction(SignupUiAction.TypeEmail(email = it))
+                    },
+                    colors = TextFieldDefaults.colors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        focusedContainerColor = Color.White,
+                        unfocusedContainerColor = Color.White
+                    ),
+                    placeholder = {
+                        Text(
+                            text = stringResource(Res.string.email),
+                            style = TextStyle(
+                                fontWeight = FontWeight.Normal,
+                                color = Color.ThemeColor_Grey
+                            )
+                        )
+                    }
+                )
+
+                TextField(
+                    value = state.mobileNumber,
+                    maxLines = 1,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = MaterialTheme.shapes.medium,
+                    onValueChange = {
+                        component.onAction(SignupUiAction.TypeMobileNumber(mobile = it))
+                    },
+                    colors = TextFieldDefaults.colors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        focusedContainerColor = Color.White,
+                        unfocusedContainerColor = Color.White
+                    ),
+                    placeholder = {
+                        Text(
+                            text = stringResource(Res.string.mobile_number),
+                            style = TextStyle(
+                                fontWeight = FontWeight.Normal,
+                                color = Color.ThemeColor_Grey
+                            )
+                        )
+                    }
+                )
+
+                TextField(
+                    value = state.cnic,
+                    maxLines = 1,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = MaterialTheme.shapes.medium,
+                    onValueChange = {
+                        component.onAction(SignupUiAction.TypeCNIC(cnic = it))
+                    },
+                    colors = TextFieldDefaults.colors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        focusedContainerColor = Color.White,
+                        unfocusedContainerColor = Color.White
+                    ),
+                    placeholder = {
+                        Text(
+                            text = stringResource(Res.string.cnic),
+                            style = TextStyle(
+                                fontWeight = FontWeight.Normal,
+                                color = Color.ThemeColor_Grey
+                            )
+                        )
+                    }
+                )
+
                 PasswordTextField(
                     password = state.password,
                     onPasswordChange = {
-                        component.onAction(LoginUiAction.TypePassword(password = it))
-                    })
+                        component.onAction(SignupUiAction.TypePassword(password = it))
+                    }
+                )
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Checkbox(
+                        checked = state.termsAndConditionAccepted,
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = Color.ThemeColor_Blue,
+                            uncheckedColor = Color.White
+                        ),
+                        onCheckedChange = { checked ->
+                            component.onAction(SignupUiAction.OnCheckBoxAction(checked))
+                        })
+                    SpannableText(
+                        planeText = "I agree with ",
+                        planeTextColor = Color.White,
+                        annotatedText = "Terms & Condition",
+                        annotatedTextColor = Color.ThemeColor_Blue,
+                        onAnnotationClicked = {}
+                    )
+                }
 
                 CustomButton(
                     modifier = Modifier
@@ -131,7 +228,7 @@ fun LoginPage(component: LoginComponent) {
                         .height(55.dp),
                     onClick = {},
                     shape = RoundedCornerShape(12.dp),
-                    text = stringResource(Res.string.login),
+                    text = stringResource(Res.string.sign_up),
                     textStyle = TextStyle(
                         color = Color.White,
                         fontSize = 18.sp,
@@ -142,16 +239,6 @@ fun LoginPage(component: LoginComponent) {
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
-
-                Text(
-                    modifier = Modifier.padding(vertical = 12.dp),
-                    text = stringResource(Res.string.forgot_username_or_password),
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color.ThemeColor_Grey
-                    )
-                )
 
                 IconButton(
                     onClick = {},
@@ -170,7 +257,7 @@ fun LoginPage(component: LoginComponent) {
                     modifier = Modifier.padding(vertical = 12.dp),
                 ) {
                     Text(
-                        text = stringResource(Res.string.dont_have_an_account),
+                        text = stringResource(Res.string.already_have_an_account),
                         style = TextStyle(
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Normal,
@@ -178,10 +265,10 @@ fun LoginPage(component: LoginComponent) {
                         )
                     )
                     TextButton(onClick = {
-                        component.onAction(LoginUiAction.OnSignupClicked)
+                        component.onAction(SignupUiAction.OnLoginClick)
                     }) {
                         Text(
-                            text = stringResource(Res.string.sign_up),
+                            text = stringResource(Res.string.login),
                             style = TextStyle(
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium,
