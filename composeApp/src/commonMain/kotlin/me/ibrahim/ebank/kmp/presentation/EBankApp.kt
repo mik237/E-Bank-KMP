@@ -6,6 +6,7 @@ import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import me.ibrahim.ebank.kmp.presentation.decompose.root.EBankRoot
+import me.ibrahim.ebank.kmp.presentation.ui.login.LoginPage
 import me.ibrahim.ebank.kmp.presentation.ui.onboarding.OnBoardingPage
 import me.ibrahim.ebank.kmp.presentation.ui.splash.SplashPage
 
@@ -20,6 +21,7 @@ fun EBankApp(root: EBankRoot) {
             when (val child = it.instance) {
                 is EBankRoot.MainDestinationChild.Splash -> SplashPage(child.component)
                 is EBankRoot.MainDestinationChild.OnBoarding -> OnBoardingPage(child.component)
+                is EBankRoot.MainDestinationChild.Login -> LoginPage(child.component)
             }
         }
     }
