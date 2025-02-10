@@ -1,5 +1,6 @@
 package me.ibrahim.ebank.kmp.presentation.ui.signup
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -46,6 +48,7 @@ import e_bank_kmp.composeapp.generated.resources.fingerprint
 import e_bank_kmp.composeapp.generated.resources.login
 import e_bank_kmp.composeapp.generated.resources.mobile_number
 import e_bank_kmp.composeapp.generated.resources.sign_up
+import e_bank_kmp.composeapp.generated.resources.uae_flag
 import e_bank_kmp.composeapp.generated.resources.username
 import me.ibrahim.ebank.kmp.presentation.composables.CustomButton
 import me.ibrahim.ebank.kmp.presentation.composables.InteractionBlocker
@@ -56,6 +59,7 @@ import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponent
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -164,6 +168,17 @@ fun SignupPage(component: SignupComponent) {
                                 color = Color.ThemeColor_Grey
                             )
                         )
+                    },
+                    leadingIcon = {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Image(
+                                painter = painterResource(Res.drawable.uae_flag),
+                                contentDescription = null,
+                                modifier = Modifier.width(25.dp)
+                                    .padding(start = 5.dp)
+                            )
+                            Text(text = "+971", color = Color.ThemeColor_DarkGrey)
+                        }
                     }
                 )
 
@@ -192,12 +207,36 @@ fun SignupPage(component: SignupComponent) {
                     }
                 )
 
-                PasswordTextField(
-                    password = state.password,
-                    onPasswordChange = {
-                        component.onAction(SignupUiAction.TypePassword(password = it))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(15.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    PasswordTextField(
+                        modifier = Modifier.weight(1f),
+                        password = state.password,
+                        onPasswordChange = {
+                            component.onAction(SignupUiAction.TypePassword(password = it))
+                        }
+                    )
+
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.size(54.dp)
+                            .background(color = Color.White, shape = MaterialTheme.shapes.medium),
+                    ) {
+                        IconButton(
+                            onClick = {},
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Fingerprint,
+                                contentDescription = stringResource(Res.string.fingerprint),
+                                tint = Color.ThemeColor_DarkGrey,
+                                modifier = Modifier.size(80.dp)
+                            )
+                        }
                     }
-                )
+                }
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
