@@ -50,6 +50,7 @@ import e_bank_kmp.composeapp.generated.resources.login_to_your_account
 import e_bank_kmp.composeapp.generated.resources.password
 import e_bank_kmp.composeapp.generated.resources.sign_up
 import e_bank_kmp.composeapp.generated.resources.username
+import me.ibrahim.ebank.kmp.presentation.composables.CustomButton
 import me.ibrahim.ebank.kmp.presentation.composables.InteractionBlocker
 import me.ibrahim.ebank.kmp.presentation.composables.PasswordTextField
 import me.ibrahim.ebank.kmp.presentation.composables.TopEndCircle
@@ -124,25 +125,22 @@ fun LoginPage(component: LoginComponent) {
                         component.onAction(LoginUiAction.TypePassword(password = it))
                     })
 
-                Button(
+                CustomButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(55.dp),
                     onClick = {},
                     shape = RoundedCornerShape(12.dp),
-                    modifier = Modifier.fillMaxWidth()
-                        .height(55.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.ThemeColor_Blue,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text(
-                        text = stringResource(Res.string.login),
-                        style = TextStyle(
-                            color = Color.White,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Medium
-                        )
-                    )
-                }
+                    text = stringResource(Res.string.login),
+                    textStyle = TextStyle(
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium
+                    ),
+                    containerColor = Color.ThemeColor_Blue,
+                    contentColor = Color.White
+                )
+
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
