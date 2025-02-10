@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
@@ -46,7 +47,9 @@ import e_bank_kmp.composeapp.generated.resources.fingerprint
 import e_bank_kmp.composeapp.generated.resources.forgot_username_or_password
 import e_bank_kmp.composeapp.generated.resources.login
 import e_bank_kmp.composeapp.generated.resources.login_to_your_account
+import e_bank_kmp.composeapp.generated.resources.password
 import e_bank_kmp.composeapp.generated.resources.sign_up
+import e_bank_kmp.composeapp.generated.resources.username
 import me.ibrahim.ebank.kmp.presentation.composables.InteractionBlocker
 import me.ibrahim.ebank.kmp.presentation.composables.TopEndCircle
 import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponent
@@ -102,7 +105,16 @@ fun LoginPage(component: LoginComponent) {
                     colors = TextFieldDefaults.colors(
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent
-                    )
+                    ),
+                    placeholder = {
+                        Text(
+                            text = stringResource(Res.string.username),
+                            style = TextStyle(
+                                fontWeight = FontWeight.Normal,
+                                color = Color.ThemeColor_Grey
+                            )
+                        )
+                    }
                 )
 
                 TextField(
@@ -113,12 +125,24 @@ fun LoginPage(component: LoginComponent) {
                     onValueChange = {
                         component.onAction(LoginUiAction.TypePassword(password = it))
                     },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Password
+                    ),
+                    visualTransformation = PasswordVisualTransformation(),
                     keyboardActions = KeyboardActions(onDone = {}),
                     colors = TextFieldDefaults.colors(
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent
-                    )
+                    ),
+                    placeholder = {
+                        Text(
+                            text = stringResource(Res.string.password),
+                            style = TextStyle(
+                                fontWeight = FontWeight.Normal,
+                                color = Color.ThemeColor_Grey
+                            )
+                        )
+                    }
                 )
 
                 Button(
