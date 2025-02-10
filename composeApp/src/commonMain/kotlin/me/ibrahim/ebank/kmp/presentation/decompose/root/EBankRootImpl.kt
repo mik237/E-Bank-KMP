@@ -7,6 +7,8 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
+import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponent
@@ -38,6 +40,7 @@ class EBankRootImpl(
             MainNavigationConfig.OnBoarding -> EBankRoot.MainDestinationChild.OnBoarding(component = buildOnBoardingComponent(context))
             MainNavigationConfig.Login -> EBankRoot.MainDestinationChild.Login(component = buildLoginComponent(context))
             MainNavigationConfig.Signup -> EBankRoot.MainDestinationChild.Signup(component = buildSignupComponent(context))
+            MainNavigationConfig.Home -> EBankRoot.MainDestinationChild.Home(component = buildHomeComponent(context))
         }
     }
 
@@ -71,6 +74,10 @@ class EBankRootImpl(
             })
     }
 
+    private fun buildHomeComponent(context: ComponentContext): HomeComponent {
+        return HomeComponentImpl()
+    }
+
     @Serializable
     sealed class MainNavigationConfig {
         @Serializable
@@ -78,5 +85,6 @@ class EBankRootImpl(
         data object OnBoarding : MainNavigationConfig()
         data object Login : MainNavigationConfig()
         data object Signup : MainNavigationConfig()
+        data object Home : MainNavigationConfig()
     }
 }
