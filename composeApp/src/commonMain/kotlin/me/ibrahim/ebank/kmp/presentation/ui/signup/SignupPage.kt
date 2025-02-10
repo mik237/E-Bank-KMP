@@ -277,19 +277,6 @@ fun SignupPage(component: SignupComponent) {
                     contentColor = Color.White
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
-
-                IconButton(
-                    onClick = {},
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Fingerprint,
-                        contentDescription = stringResource(Res.string.fingerprint),
-                        tint = Color.White,
-                        modifier = Modifier.size(80.dp)
-                    )
-                }
-
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(5.dp),
                     verticalAlignment = Alignment.CenterVertically,
