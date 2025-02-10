@@ -1,16 +1,12 @@
-package me.ibrahim.ebank.kmp.presentation.ui.home
+package me.ibrahim.ebank.kmp.presentation.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Notifications
@@ -29,30 +25,48 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import e_bank_kmp.composeapp.generated.resources.Res
 import e_bank_kmp.composeapp.generated.resources.uae_flag
-import me.ibrahim.ebank.kmp.presentation.composables.HomePageHeader
-import me.ibrahim.ebank.kmp.presentation.composables.InteractionBlocker
-import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponent
 import me.ibrahim.ebank.kmp.utils.StrokeGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
-import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun HomePage(component: HomeComponent) {
-    InteractionBlocker(
-        modifier = Modifier.fillMaxSize(),
-        blockCondition = false
+fun HomePageHeader(modifier: Modifier = Modifier, title: String) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp)
     ) {
-        Box(
-            modifier = Modifier.fillMaxSize()
-                .background(color = Color.White)
+        Image(
+            modifier = Modifier
+                .size(45.dp)
+                .clip(CircleShape),
+            painter = painterResource(Res.drawable.uae_flag),
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+
+        Text(
+            text = title,
+            style = TextStyle(
+                fontSize = 20.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.ThemeColor_DarkGrey
+            )
+        )
+
+        IconButton(
+            onClick = {},
+            modifier = Modifier.size(40.dp)
+                .clip(CircleShape)
+                .background(color = Color.StrokeGrey.copy(alpha = 0.25f))
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                HomePageHeader(title = "Fintech", modifier = Modifier.statusBarsPadding())
-            }
+            Icon(
+                imageVector = Icons.Outlined.Notifications,
+                contentDescription = null,
+                tint = Color.StrokeGrey
+            )
         }
     }
 }

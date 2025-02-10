@@ -15,3 +15,7 @@ val Color.Companion.ThemeColor_Grey: Color
 @get:Composable
 val Color.Companion.ThemeColor_DarkGrey: Color
     get() = Color(0xFF23303B)
+
+@get:Composable
+val Color.Companion.StrokeGrey: Color
+    get() = Color(0xFFA3A8AC)
