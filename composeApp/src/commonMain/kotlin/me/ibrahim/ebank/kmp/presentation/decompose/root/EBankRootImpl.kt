@@ -11,6 +11,8 @@ import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponentImpl
+import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.splash.SplashComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.splash.SplashComponentImpl
 
@@ -35,6 +37,7 @@ class EBankRootImpl(
             MainNavigationConfig.Splash -> EBankRoot.MainDestinationChild.Splash(component = buildSplashComponent(context))
             MainNavigationConfig.OnBoarding -> EBankRoot.MainDestinationChild.OnBoarding(component = buildOnBoardingComponent(context))
             MainNavigationConfig.Login -> EBankRoot.MainDestinationChild.Login(component = buildLoginComponent(context))
+            MainNavigationConfig.Signup -> EBankRoot.MainDestinationChild.Signup(component = buildSignupComponent(context))
         }
     }
 
@@ -52,9 +55,21 @@ class EBankRootImpl(
     }
 
     private fun buildLoginComponent(context: ComponentContext): LoginComponent {
-        return LoginComponentImpl(componentContext = context)
+        return LoginComponentImpl(
+            componentContext = context,
+            onSignupClicked = {
+                navigation.replaceCurrent(MainNavigationConfig.Signup)
+            }
+        )
     }
 
+    private fun buildSignupComponent(context: ComponentContext): SignupComponent {
+        return SignupComponentImpl(
+            componentContext = context,
+            onLoginClicked = {
+                navigation.replaceCurrent(MainNavigationConfig.Login)
+            })
+    }
 
     @Serializable
     sealed class MainNavigationConfig {
@@ -62,5 +77,6 @@ class EBankRootImpl(
         data object Splash : MainNavigationConfig()
         data object OnBoarding : MainNavigationConfig()
         data object Login : MainNavigationConfig()
+        data object Signup : MainNavigationConfig()
     }
 }
