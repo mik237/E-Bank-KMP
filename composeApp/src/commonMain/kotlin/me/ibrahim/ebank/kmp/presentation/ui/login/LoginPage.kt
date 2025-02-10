@@ -51,6 +51,7 @@ import e_bank_kmp.composeapp.generated.resources.password
 import e_bank_kmp.composeapp.generated.resources.sign_up
 import e_bank_kmp.composeapp.generated.resources.username
 import me.ibrahim.ebank.kmp.presentation.composables.InteractionBlocker
+import me.ibrahim.ebank.kmp.presentation.composables.PasswordTextField
 import me.ibrahim.ebank.kmp.presentation.composables.TopEndCircle
 import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponent
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
@@ -117,33 +118,11 @@ fun LoginPage(component: LoginComponent) {
                     }
                 )
 
-                TextField(
-                    value = password,
-                    maxLines = 1,
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = MaterialTheme.shapes.medium,
-                    onValueChange = {
+                PasswordTextField(
+                    password = password,
+                    onPasswordChange = {
                         component.onAction(LoginUiAction.TypePassword(password = it))
-                    },
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        keyboardType = KeyboardType.Password
-                    ),
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardActions = KeyboardActions(onDone = {}),
-                    colors = TextFieldDefaults.colors(
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent
-                    ),
-                    placeholder = {
-                        Text(
-                            text = stringResource(Res.string.password),
-                            style = TextStyle(
-                                fontWeight = FontWeight.Normal,
-                                color = Color.ThemeColor_Grey
-                            )
-                        )
-                    }
-                )
+                    })
 
                 Button(
                     onClick = {},
