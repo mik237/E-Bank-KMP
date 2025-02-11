@@ -32,7 +32,7 @@ class HomeComponentImpl : HomeComponent, InstanceKeeper.Instance {
     private fun createCardsList() {
         val cards = listOf(
             Card(
-                cardNumber = "",
+                cardNumber = "•••• •••• •••• 8635",
                 cardType = CardType.MASTER,
                 cardHolderName = "Muhammad Ibrahim",
                 balance = 4030.0,
@@ -41,8 +41,8 @@ class HomeComponentImpl : HomeComponent, InstanceKeeper.Instance {
                 cardImage = Res.drawable.card_blue
             ),
             Card(
-                cardNumber = "",
-                cardType = CardType.MASTER,
+                cardNumber = "•••• •••• •••• 8635",
+                cardType = CardType.VISA,
                 cardHolderName = "Muhammad Ibrahim",
                 balance = 1430.0,
                 validFrom = "10/24",
@@ -50,7 +50,7 @@ class HomeComponentImpl : HomeComponent, InstanceKeeper.Instance {
                 cardImage = Res.drawable.card_green
             ),
             Card(
-                cardNumber = "",
+                cardNumber = "•••• •••• •••• 8635",
                 cardType = CardType.MASTER,
                 cardHolderName = "Muhammad Ibrahim",
                 balance = 24030.0,
