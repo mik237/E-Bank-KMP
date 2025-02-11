@@ -9,12 +9,17 @@ import e_bank_kmp.composeapp.generated.resources.Res
 import e_bank_kmp.composeapp.generated.resources.card_black
 import e_bank_kmp.composeapp.generated.resources.card_blue
 import e_bank_kmp.composeapp.generated.resources.card_green
-import e_bank_kmp.composeapp.generated.resources.ic_visa
+import e_bank_kmp.composeapp.generated.resources.ic_bank
+import e_bank_kmp.composeapp.generated.resources.ic_money_transfer
+import e_bank_kmp.composeapp.generated.resources.ic_pay_bill
 import me.ibrahim.ebank.kmp.domain.Card
 import me.ibrahim.ebank.kmp.domain.QuickAction
 import me.ibrahim.ebank.kmp.presentation.ui.home.HomePageAction
 import me.ibrahim.ebank.kmp.presentation.ui.home.HomePageState
 import me.ibrahim.ebank.kmp.utils.CardType
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Green
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 
 class HomeComponentImpl : HomeComponent, InstanceKeeper.Instance {
 
@@ -36,11 +41,22 @@ class HomeComponentImpl : HomeComponent, InstanceKeeper.Instance {
     private fun createQuickActionsList() {
         val actions = listOf(
             QuickAction(
-                title = "",
-                icon = Res.drawable.ic_visa,
-                iconColor = Color.White
-            )
+                title = "Money Transfer",
+                icon = Res.drawable.ic_money_transfer,
+                iconColor = Color.ThemeColor_Green
+            ),
+            QuickAction(
+                title = "Pay Bill",
+                icon = Res.drawable.ic_pay_bill,
+                iconColor = Color.ThemeColor_Blue
+            ),
+            QuickAction(
+                title = "Bank to Bank",
+                icon = Res.drawable.ic_bank,
+                iconColor = Color.ThemeColor_Grey
+            ),
         )
+        _state.update { it.copy(quickActions = actions) }
     }
 
     private fun createCardsList() {
