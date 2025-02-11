@@ -29,8 +29,8 @@ fun Indicators(
     modifier: Modifier = Modifier,
     selectedIndex: Int = 0,
     selectedLength: Int = 60,
-    unselectedLength: Int = 20,
 ) {
+    val unselectedLength = selectedLength / 3
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
