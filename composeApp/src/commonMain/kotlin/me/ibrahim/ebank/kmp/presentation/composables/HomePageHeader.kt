@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import e_bank_kmp.composeapp.generated.resources.Res
+import e_bank_kmp.composeapp.generated.resources.ic_notifications
 import e_bank_kmp.composeapp.generated.resources.uae_flag
 import me.ibrahim.ebank.kmp.utils.StrokeGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
@@ -63,7 +64,7 @@ fun HomePageHeader(modifier: Modifier = Modifier, title: String) {
                 .background(color = Color.StrokeGrey.copy(alpha = 0.25f))
         ) {
             Icon(
-                imageVector = Icons.Outlined.Notifications,
+                painter = painterResource(Res.drawable.ic_notifications),
                 contentDescription = null,
                 tint = Color.StrokeGrey
             )

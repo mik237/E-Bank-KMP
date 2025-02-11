@@ -40,6 +40,7 @@ fun HomePage(component: HomeComponent) {
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
                 HomePageHeader(title = "Fintech", modifier = Modifier.statusBarsPadding())
 
                 CardsPager(cards = state.cards, pagerState = pagerState)
