@@ -1,21 +1,25 @@
 package me.ibrahim.ebank.kmp.utils
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 
-@get:Composable
+@Stable
 val Color.Companion.ThemeColor_Blue: Color
     get() = Color(0xFF456EFE)
 
-@get:Composable
+@Stable
 val Color.Companion.ThemeColor_Grey: Color
     get() = Color(0xFF8E949A)
 
 
-@get:Composable
+@Stable
 val Color.Companion.ThemeColor_DarkGrey: Color
     get() = Color(0xFF23303B)
 
-@get:Composable
+@Stable
+val Color.Companion.ThemeColor_Green: Color
+    get() = Color(0xFF13C999)
+
+@Stable
 val Color.Companion.StrokeGrey: Color
     get() = Color(0xFFA3A8AC)

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -11,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import me.ibrahim.ebank.kmp.presentation.composables.CardsPager
 import me.ibrahim.ebank.kmp.presentation.composables.HomePageHeader
@@ -40,6 +42,7 @@ fun HomePage(component: HomeComponent) {
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
                 HomePageHeader(title = "Fintech", modifier = Modifier.statusBarsPadding())
 
                 CardsPager(cards = state.cards, pagerState = pagerState)
@@ -53,6 +56,11 @@ fun HomePage(component: HomeComponent) {
                     selectedIndex = pagerState.currentPage,
                     selectedLength = 20,
                     modifier = Modifier
+                )
+
+                QuickActions(
+                    actions = state.quickActions,
+                    modifier = Modifier.padding(top = 10.dp)
                 )
             }
         }
