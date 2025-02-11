@@ -122,7 +122,7 @@ fun CardPage(page: Int, pagerState: PagerState, card: Card) {
                     )
                 )
                 Text(
-                    text = "$${card.balance}",
+                    text = "AED ${card.balance}",
                     style = TextStyle(
                         color = Color.White,
                         fontWeight = FontWeight.Medium,

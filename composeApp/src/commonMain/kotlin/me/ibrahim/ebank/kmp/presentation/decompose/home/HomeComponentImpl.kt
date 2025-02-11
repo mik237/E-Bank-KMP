@@ -34,7 +34,7 @@ class HomeComponentImpl : HomeComponent, InstanceKeeper.Instance {
             Card(
                 cardNumber = "•••• •••• •••• 8635",
                 cardType = CardType.MASTER,
-                cardHolderName = "Muhammad Ibrahim",
+                cardHolderName = "Will Jonas",
                 balance = 4030.0,
                 validFrom = "10/24",
                 validThru = "10/30",
@@ -43,7 +43,7 @@ class HomeComponentImpl : HomeComponent, InstanceKeeper.Instance {
             Card(
                 cardNumber = "•••• •••• •••• 8635",
                 cardType = CardType.VISA,
-                cardHolderName = "Muhammad Ibrahim",
+                cardHolderName = "Will Jonas",
                 balance = 1430.0,
                 validFrom = "10/24",
                 validThru = "10/30",
@@ -52,7 +52,7 @@ class HomeComponentImpl : HomeComponent, InstanceKeeper.Instance {
             Card(
                 cardNumber = "•••• •••• •••• 8635",
                 cardType = CardType.MASTER,
-                cardHolderName = "Muhammad Ibrahim",
+                cardHolderName = "Will Jonas",
                 balance = 24030.0,
                 validFrom = "10/24",
                 validThru = "10/30",
