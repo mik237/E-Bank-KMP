@@ -1,4 +1,4 @@
-package me.ibrahim.ebank.kmp.domain
+package me.ibrahim.ebank.kmp.domain.constants
 
 import androidx.compose.ui.graphics.Color
 import e_bank_kmp.composeapp.generated.resources.Res

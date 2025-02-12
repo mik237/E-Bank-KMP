@@ -41,7 +41,7 @@ import e_bank_kmp.composeapp.generated.resources.ic_sim
 import e_bank_kmp.composeapp.generated.resources.ic_visa
 import e_bank_kmp.composeapp.generated.resources.valid_from
 import e_bank_kmp.composeapp.generated.resources.valid_thru
-import me.ibrahim.ebank.kmp.domain.Card
+import me.ibrahim.ebank.kmp.domain.models.Card
 import me.ibrahim.ebank.kmp.utils.CardType
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
