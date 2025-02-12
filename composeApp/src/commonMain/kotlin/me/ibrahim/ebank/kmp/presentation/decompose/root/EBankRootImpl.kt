@@ -1,12 +1,20 @@
+@file:OptIn(DelicateDecomposeApi::class)
+
 package me.ibrahim.ebank.kmp.presentation.decompose.root
 
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.DelicateDecomposeApi
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
+import me.ibrahim.ebank.kmp.domain.models.Card
+import me.ibrahim.ebank.kmp.presentation.decompose.card_settings.CardSettingsComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.card_settings.CardSettingsComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponent
@@ -17,6 +25,7 @@ import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.splash.SplashComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.splash.SplashComponentImpl
+import me.ibrahim.ebank.kmp.presentation.ui.home.HomePageAction
 
 class EBankRootImpl(
     componentContext: ComponentContext
@@ -41,6 +50,12 @@ class EBankRootImpl(
             MainNavigationConfig.Login -> EBankRoot.MainDestinationChild.Login(component = buildLoginComponent(context))
             MainNavigationConfig.Signup -> EBankRoot.MainDestinationChild.Signup(component = buildSignupComponent(context))
             MainNavigationConfig.Home -> EBankRoot.MainDestinationChild.Home(component = buildHomeComponent(context))
+            is MainNavigationConfig.CardSettings -> EBankRoot.MainDestinationChild.CardSettings(
+                component = buildCardSettingsComponent(
+                    context,
+                    config.card
+                )
+            )
         }
     }
 
@@ -75,7 +90,15 @@ class EBankRootImpl(
     }
 
     private fun buildHomeComponent(context: ComponentContext): HomeComponent {
-        return HomeComponentImpl()
+        return HomeComponentImpl(doAction = { action ->
+            when (action) {
+                is HomePageAction.OnCardClick -> navigation.push(MainNavigationConfig.CardSettings(action.card))
+            }
+        })
+    }
+
+    private fun buildCardSettingsComponent(context: ComponentContext, card: Card): CardSettingsComponent {
+        return CardSettingsComponentImpl(card = card, onBackClick = { navigation.pop() })
     }
 
     @Serializable
@@ -86,5 +109,6 @@ class EBankRootImpl(
         data object Login : MainNavigationConfig()
         data object Signup : MainNavigationConfig()
         data object Home : MainNavigationConfig()
+        data class CardSettings(val card: Card) : MainNavigationConfig()
     }
 }

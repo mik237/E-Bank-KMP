@@ -1,6 +1,7 @@
 package me.ibrahim.ebank.kmp.presentation.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -30,6 +31,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
@@ -51,7 +53,9 @@ import kotlin.math.absoluteValue
 fun CardsPager(
     modifier: Modifier = Modifier,
     cards: List<Card>,
-    pagerState: PagerState = rememberPagerState { cards.size }
+    pagerState: PagerState = rememberPagerState { cards.size },
+    horizontalPadding: Dp = 32.dp,
+    onCardClick: (Card) -> Unit = {}
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
         val itemSpacing = 16.dp
@@ -62,21 +66,22 @@ fun CardsPager(
                 state = pagerState,
                 pagerSnapDistance = PagerSnapDistance.atMost(0)
             ),
-            contentPadding = PaddingValues(horizontal = 32.dp),
+            contentPadding = PaddingValues(horizontal = horizontalPadding),
             pageSpacing = itemSpacing
         ) { page ->
-            CardPage(page = page, pagerState = pagerState, card = cards[page])
+            CardPage(page = page, pagerState = pagerState, card = cards[page], onClick = { onCardClick(cards[page]) })
         }
     }
 }
 
 @Composable
-fun CardPage(page: Int, pagerState: PagerState, card: Card) {
+fun CardPage(page: Int, pagerState: PagerState, card: Card, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(1.5f)
             .clip(RoundedCornerShape(12.dp))
+            .clickable { onClick() }
             .graphicsLayer {
                 val pageOffSet = (
                         (pagerState.currentPage - page) + pagerState
