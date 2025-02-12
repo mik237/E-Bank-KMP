@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import e_bank_kmp.composeapp.generated.resources.Res
 import e_bank_kmp.composeapp.generated.resources.services
-import me.ibrahim.ebank.kmp.domain.QuickServices
+import me.ibrahim.ebank.kmp.domain.constants.QuickServices
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 import me.ibrahim.ebank.kmp.utils.getScreenWidth

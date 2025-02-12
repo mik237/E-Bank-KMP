@@ -11,9 +11,14 @@ import e_bank_kmp.composeapp.generated.resources.card_blue
 import e_bank_kmp.composeapp.generated.resources.card_green
 import e_bank_kmp.composeapp.generated.resources.ic_bank
 import e_bank_kmp.composeapp.generated.resources.ic_money_transfer
+import e_bank_kmp.composeapp.generated.resources.ic_netflix
 import e_bank_kmp.composeapp.generated.resources.ic_pay_bill
-import me.ibrahim.ebank.kmp.domain.Card
-import me.ibrahim.ebank.kmp.domain.QuickAction
+import e_bank_kmp.composeapp.generated.resources.ic_paypal
+import e_bank_kmp.composeapp.generated.resources.ic_spotify
+import e_bank_kmp.composeapp.generated.resources.ic_visa
+import me.ibrahim.ebank.kmp.domain.models.Card
+import me.ibrahim.ebank.kmp.domain.models.QuickAction
+import me.ibrahim.ebank.kmp.domain.models.SchedulePayment
 import me.ibrahim.ebank.kmp.presentation.ui.home.HomePageAction
 import me.ibrahim.ebank.kmp.presentation.ui.home.HomePageState
 import me.ibrahim.ebank.kmp.utils.CardType
@@ -36,6 +41,38 @@ class HomeComponentImpl : HomeComponent, InstanceKeeper.Instance {
     init {
         createCardsList()
         createQuickActionsList()
+        createSchedulePayments()
+    }
+
+    private fun createSchedulePayments() {
+        val schedulePayments = listOf(
+            SchedulePayment(
+                scheduleDate = "12/04",
+                receiverName = "Netflix",
+                amount = 125.0,
+                icon = Res.drawable.ic_netflix
+            ),
+            SchedulePayment(
+                scheduleDate = "14/03",
+                receiverName = "Paypal",
+                amount = 3.50,
+                icon = Res.drawable.ic_paypal
+            ),
+            SchedulePayment(
+                scheduleDate = "25/03",
+                receiverName = "Spotify",
+                amount = 101.0,
+                icon = Res.drawable.ic_spotify
+            ),
+            SchedulePayment(
+                scheduleDate = "15/02",
+                receiverName = "Credit Card",
+                amount = 650.0,
+                icon = Res.drawable.ic_visa
+            )
+        )
+
+        _state.update { it.copy(schedulePayments = schedulePayments) }
     }
 
     private fun createQuickActionsList() {

@@ -21,6 +21,7 @@ import me.ibrahim.ebank.kmp.presentation.composables.InteractionBlocker
 import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponent
 import me.ibrahim.ebank.kmp.presentation.ui.home.quickActions.QuickActionsUI
 import me.ibrahim.ebank.kmp.presentation.ui.home.quickServices.QuickServicesUI
+import me.ibrahim.ebank.kmp.presentation.ui.home.schedulePayments.SchedulePaymentsUI
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 
@@ -62,10 +63,15 @@ fun HomePage(component: HomeComponent) {
 
                 QuickActionsUI(
                     actions = state.quickActions,
-                    modifier = Modifier.padding(top = 10.dp)
+                    modifier = Modifier.padding(top = 12.dp)
                 )
 
-                QuickServicesUI(modifier = Modifier.padding(top = 15.dp))
+                QuickServicesUI(modifier = Modifier.padding(top = 18.dp))
+
+                SchedulePaymentsUI(
+                    modifier = Modifier.padding(top = 18.dp),
+                    payments = state.schedulePayments
+                )
             }
         }
     }

@@ -1,4 +1,4 @@
-package me.ibrahim.ebank.kmp.domain
+package me.ibrahim.ebank.kmp.domain.models
 
 import me.ibrahim.ebank.kmp.utils.CardType
 import org.jetbrains.compose.resources.DrawableResource

@@ -1,4 +1,4 @@
-package me.ibrahim.ebank.kmp.domain
+package me.ibrahim.ebank.kmp.domain.models
 
 import androidx.compose.ui.graphics.Color
 import org.jetbrains.compose.resources.DrawableResource

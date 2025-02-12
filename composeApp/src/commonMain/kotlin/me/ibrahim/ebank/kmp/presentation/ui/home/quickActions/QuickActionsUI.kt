@@ -21,7 +21,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import me.ibrahim.ebank.kmp.domain.QuickAction
+import me.ibrahim.ebank.kmp.domain.models.QuickAction
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 import me.ibrahim.ebank.kmp.utils.getScreenWidth

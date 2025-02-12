@@ -34,4 +34,7 @@
     <string name="gifts">Gifts</string>
     <string name="insurance">Insurance</string>
     <string name="services">Services</string>
+    <string name="schedule_payments">Schedule Payments</string>
+    <string name="view_all">View All</string>
+    <string name="next_payment">Next Payment: %1$s</string>
 </resources>
