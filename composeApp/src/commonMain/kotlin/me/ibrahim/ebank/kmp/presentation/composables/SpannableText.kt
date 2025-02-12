@@ -1,10 +1,12 @@
 package me.ibrahim.ebank.kmp.presentation.composables
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
@@ -15,6 +17,7 @@ fun SpannableText(
     annotatedText: String = "",
     planeTextColor: Color = Color.Transparent,
     annotatedTextColor: Color = Color.Transparent,
+    style: TextStyle = MaterialTheme.typography.titleSmall,
     onAnnotationClicked: (LinkAnnotation) -> Unit
 ) {
     val text = buildAnnotatedString {
@@ -40,5 +43,6 @@ fun SpannableText(
 
     Text(
         text = text,
+        style = style
     )
 }

@@ -73,7 +73,7 @@ fun QuickServicesUI(modifier: Modifier = Modifier) {
                             painter = painterResource(service.icon),
                             contentDescription = null,
                             modifier = Modifier
-                                .size(size / 2f),
+                                .size(size / 2.5f),
                             tint = service.iconColor
                         )
                     }

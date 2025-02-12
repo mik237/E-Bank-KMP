@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -29,6 +27,8 @@ import e_bank_kmp.composeapp.generated.resources.next_payment
 import e_bank_kmp.composeapp.generated.resources.schedule_payments
 import e_bank_kmp.composeapp.generated.resources.view_all
 import me.ibrahim.ebank.kmp.domain.models.SchedulePayment
+import me.ibrahim.ebank.kmp.presentation.composables.SpannableText
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 import org.jetbrains.compose.resources.painterResource
@@ -42,6 +42,7 @@ fun SchedulePaymentsUI(modifier: Modifier = Modifier, payments: List<SchedulePay
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
+            .padding(bottom = 16.dp)
     ) {
         Row(
             modifier = Modifier
@@ -69,9 +70,8 @@ fun SchedulePaymentsUI(modifier: Modifier = Modifier, payments: List<SchedulePay
             }
         }
 
-
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            items(payments, key = { it.receiverName }) {
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            payments.map {
                 Box(
                     modifier = Modifier.fillMaxWidth()
                         .shadow(
@@ -110,13 +110,17 @@ fun SchedulePaymentsUI(modifier: Modifier = Modifier, payments: List<SchedulePay
                                 )
                             )
 
-                            Text(
-                                text = stringResource(Res.string.next_payment, it.scheduleDate),
+                            SpannableText(
+                                planeText = stringResource(Res.string.next_payment),
+                                planeTextColor = Color.ThemeColor_Grey,
+                                annotatedText = it.scheduleDate,
+                                annotatedTextColor = Color.ThemeColor_Blue,
                                 style = TextStyle(
                                     color = Color.ThemeColor_Grey,
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight.SemiBold
-                                )
+                                ),
+                                onAnnotationClicked = {}
                             )
                         }
                         Text(
