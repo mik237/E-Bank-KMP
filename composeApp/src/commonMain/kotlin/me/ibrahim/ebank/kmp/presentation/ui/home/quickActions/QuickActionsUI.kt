@@ -1,4 +1,4 @@
-package me.ibrahim.ebank.kmp.presentation.ui.home
+package me.ibrahim.ebank.kmp.presentation.ui.home.quickActions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,9 +28,9 @@ import me.ibrahim.ebank.kmp.utils.getScreenWidth
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun QuickActions(modifier: Modifier = Modifier, actions: List<QuickAction>) {
+fun QuickActionsUI(modifier: Modifier = Modifier, actions: List<QuickAction>) {
 
-    val size = getScreenWidth() / 2.5f
+    val size = getScreenWidth() / 3f
 
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -58,11 +58,11 @@ fun QuickActions(modifier: Modifier = Modifier, actions: List<QuickAction>) {
                         .size(size)
                         .shadow(
                             elevation = 10.dp,
-                            shape = RoundedCornerShape(8.dp),
+                            shape = RoundedCornerShape(10.dp),
                             clip = false,
                             spotColor = Color.ThemeColor_Grey
                         )
-                        .background(Color.White, shape = RoundedCornerShape(8.dp)) // Rounded corners
+                        .background(Color.White, shape = RoundedCornerShape(10.dp)) // Rounded corners
 
                 ) {
                     Column(
@@ -76,7 +76,7 @@ fun QuickActions(modifier: Modifier = Modifier, actions: List<QuickAction>) {
                             modifier = Modifier.size(size / 2.5f)
                                 .background(
                                     color = quickAction.iconColor.copy(alpha = 0.1f),
-                                    shape = RoundedCornerShape(8.dp)
+                                    shape = RoundedCornerShape(10.dp)
                                 ).padding(10.dp),
                             tint = quickAction.iconColor
                         )

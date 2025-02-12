@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -25,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import e_bank_kmp.composeapp.generated.resources.Res
 import e_bank_kmp.composeapp.generated.resources.ic_notifications
-import e_bank_kmp.composeapp.generated.resources.uae_flag
+import e_bank_kmp.composeapp.generated.resources.ic_profile
 import me.ibrahim.ebank.kmp.utils.StrokeGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import org.jetbrains.compose.resources.painterResource
@@ -43,7 +41,7 @@ fun HomePageHeader(modifier: Modifier = Modifier, title: String) {
             modifier = Modifier
                 .size(45.dp)
                 .clip(CircleShape),
-            painter = painterResource(Res.drawable.uae_flag),
+            painter = painterResource(Res.drawable.ic_profile),
             contentDescription = null,
             contentScale = ContentScale.Crop
         )

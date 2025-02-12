@@ -23,4 +23,15 @@
     <string name="valid_from">Valid From %1$s</string>
     <string name="valid_thru">Valid Thru %1$s</string>
     <string name="card_holder">Card Holder</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="money_transfer">Money Transfer</string>
+    <string name="pay_bill">Pay Bill</string>
+    <string name="bank_to_bank">Bank to Bank</string>
+
+    <string name="recharge">Recharge</string>
+    <string name="charity">Charity</string>
+    <string name="loan">Loan</string>
+    <string name="gifts">Gifts</string>
+    <string name="insurance">Insurance</string>
+    <string name="services">Services</string>
 </resources>
