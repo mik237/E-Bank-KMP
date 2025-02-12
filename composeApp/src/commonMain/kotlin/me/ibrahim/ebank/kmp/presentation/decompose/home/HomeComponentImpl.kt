@@ -26,17 +26,13 @@ import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Green
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 
-class HomeComponentImpl : HomeComponent, InstanceKeeper.Instance {
+class HomeComponentImpl(private val doAction: (HomePageAction) -> Unit) : HomeComponent, InstanceKeeper.Instance {
 
     private val _state = MutableValue(HomePageState())
 
     override val state: Value<HomePageState> = _state
 
-    override fun onAction(action: HomePageAction) {
-        when (action) {
-            is HomePageAction.OnCardClick -> {}
-        }
-    }
+    override fun onAction(action: HomePageAction) = doAction(action)
 
     init {
         createCardsList()

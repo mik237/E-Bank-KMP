@@ -29,7 +29,7 @@ import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun HomePageHeader(modifier: Modifier = Modifier, title: String) {
+fun ProfileHeader(modifier: Modifier = Modifier, title: String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,

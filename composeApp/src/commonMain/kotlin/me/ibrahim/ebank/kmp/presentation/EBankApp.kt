@@ -6,6 +6,7 @@ import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import me.ibrahim.ebank.kmp.presentation.decompose.root.EBankRoot
+import me.ibrahim.ebank.kmp.presentation.ui.card_settings.CardSettingsUI
 import me.ibrahim.ebank.kmp.presentation.ui.home.HomePage
 import me.ibrahim.ebank.kmp.presentation.ui.login.LoginPage
 import me.ibrahim.ebank.kmp.presentation.ui.onboarding.OnBoardingPage
@@ -26,6 +27,7 @@ fun EBankApp(root: EBankRoot) {
                 is EBankRoot.MainDestinationChild.Login -> LoginPage(child.component)
                 is EBankRoot.MainDestinationChild.Signup -> SignupPage(child.component)
                 is EBankRoot.MainDestinationChild.Home -> HomePage(child.component)
+                is EBankRoot.MainDestinationChild.CardSettings -> CardSettingsUI(child.component)
             }
         }
     }

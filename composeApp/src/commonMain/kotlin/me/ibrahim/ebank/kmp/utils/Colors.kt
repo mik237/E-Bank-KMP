@@ -21,5 +21,9 @@ val Color.Companion.ThemeColor_Green: Color
     get() = Color(0xFF13C999)
 
 @Stable
+val Color.Companion.ThemeColor_Red: Color
+    get() = Color(0xFFFF6363)
+
+@Stable
 val Color.Companion.StrokeGrey: Color
     get() = Color(0xFFA3A8AC)

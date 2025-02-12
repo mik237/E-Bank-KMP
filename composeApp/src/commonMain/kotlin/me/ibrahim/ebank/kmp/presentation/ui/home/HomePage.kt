@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import me.ibrahim.ebank.kmp.presentation.composables.CardsPager
-import me.ibrahim.ebank.kmp.presentation.composables.HomePageHeader
+import me.ibrahim.ebank.kmp.presentation.composables.ProfileHeader
 import me.ibrahim.ebank.kmp.presentation.composables.Indicators
 import me.ibrahim.ebank.kmp.presentation.composables.InteractionBlocker
 import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponent
@@ -52,9 +52,11 @@ fun HomePage(component: HomeComponent) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                HomePageHeader(title = "Fintech", modifier = Modifier.statusBarsPadding())
+                ProfileHeader(title = "Fintech", modifier = Modifier.statusBarsPadding())
 
-                CardsPager(cards = state.cards, pagerState = pagerState)
+                CardsPager(cards = state.cards,
+                    pagerState = pagerState,
+                    onCardClick = { component.onAction(HomePageAction.OnCardClick(it)) })
 
                 Indicators(
                     count = state.cards.size,
