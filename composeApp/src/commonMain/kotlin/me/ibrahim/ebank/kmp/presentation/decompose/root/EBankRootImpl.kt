@@ -12,6 +12,7 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
+import me.ibrahim.ebank.kmp.domain.constants.QuickActionType
 import me.ibrahim.ebank.kmp.domain.models.Card
 import me.ibrahim.ebank.kmp.presentation.decompose.card_settings.CardSettingsComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.card_settings.CardSettingsComponentImpl
@@ -19,6 +20,8 @@ import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponentImpl
+import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.MoneyTransferComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.MoneyTransferComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponent
@@ -56,6 +59,8 @@ class EBankRootImpl(
                     config.card
                 )
             )
+
+            MainNavigationConfig.MoneyTransfer -> EBankRoot.MainDestinationChild.MoneyTransfer(component = buildMoneyTransferComponent(context))
         }
     }
 
@@ -93,12 +98,23 @@ class EBankRootImpl(
         return HomeComponentImpl(doAction = { action ->
             when (action) {
                 is HomePageAction.OnCardClick -> navigation.push(MainNavigationConfig.CardSettings(action.card))
+                is HomePageAction.OnQuickActionClick -> {
+                    when (action.type) {
+                        QuickActionType.MONEY_TRANSFER -> navigation.push(MainNavigationConfig.MoneyTransfer)
+                        QuickActionType.PAY_BILL -> {}
+                        QuickActionType.BANK_TO_BANK -> {}
+                    }
+                }
             }
         })
     }
 
     private fun buildCardSettingsComponent(context: ComponentContext, card: Card): CardSettingsComponent {
         return CardSettingsComponentImpl(card = card, onBackClick = { navigation.pop() })
+    }
+
+    private fun buildMoneyTransferComponent(context: ComponentContext): MoneyTransferComponent {
+        return MoneyTransferComponentImpl(onBackClick = { navigation.pop() })
     }
 
     @Serializable
@@ -110,5 +126,6 @@ class EBankRootImpl(
         data object Signup : MainNavigationConfig()
         data object Home : MainNavigationConfig()
         data class CardSettings(val card: Card) : MainNavigationConfig()
+        data object MoneyTransfer : MainNavigationConfig()
     }
 }

@@ -71,7 +71,8 @@ fun HomePage(component: HomeComponent) {
 
                 QuickActionsUI(
                     actions = state.quickActions,
-                    modifier = Modifier.padding(top = 12.dp)
+                    modifier = Modifier.padding(top = 12.dp),
+                    onClick = { component.onAction(HomePageAction.OnQuickActionClick(it)) }
                 )
 
                 QuickServicesUI(modifier = Modifier.padding(top = 18.dp))

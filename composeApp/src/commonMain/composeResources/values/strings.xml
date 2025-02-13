@@ -45,4 +45,9 @@
     <string name="lock_card">Lock Card</string>
     <string name="deactivate_card">Deactivate Card</string>
     <string name="save">Save</string>
+    <string name="my_card">My Card</string>
+    <string name="money_transfers">Money Transfer</string>
+    <string name="search">Search</string>
+    <string name="recent_transfers">Recent transfers</string>
+    <string name="continue">Continue</string>
 </resources>

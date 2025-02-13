@@ -8,6 +8,10 @@ val Color.Companion.ThemeColor_Blue: Color
     get() = Color(0xFF456EFE)
 
 @Stable
+val Color.Companion.ThemeColor_LightGrey: Color
+    get() = Color(0xFFA4A9AE)
+
+@Stable
 val Color.Companion.ThemeColor_Grey: Color
     get() = Color(0xFF8E949A)
 

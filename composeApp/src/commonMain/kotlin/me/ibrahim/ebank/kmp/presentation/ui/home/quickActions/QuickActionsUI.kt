@@ -1,6 +1,7 @@
 package me.ibrahim.ebank.kmp.presentation.ui.home.quickActions
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import me.ibrahim.ebank.kmp.domain.constants.QuickActionType
 import me.ibrahim.ebank.kmp.domain.models.QuickAction
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
@@ -28,7 +30,7 @@ import me.ibrahim.ebank.kmp.utils.getScreenWidth
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun QuickActionsUI(modifier: Modifier = Modifier, actions: List<QuickAction>) {
+fun QuickActionsUI(modifier: Modifier = Modifier, actions: List<QuickAction>, onClick: (QuickActionType) -> Unit) {
 
     val size = getScreenWidth() / 3f
 
@@ -63,6 +65,8 @@ fun QuickActionsUI(modifier: Modifier = Modifier, actions: List<QuickAction>) {
                             spotColor = Color.ThemeColor_Grey
                         )
                         .background(Color.White, shape = RoundedCornerShape(10.dp)) // Rounded corners
+                        .clickable {
+                            onClick(quickAction.type) }
 
                 ) {
                     Column(
