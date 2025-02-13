@@ -16,6 +16,7 @@ import e_bank_kmp.composeapp.generated.resources.ic_pay_bill
 import e_bank_kmp.composeapp.generated.resources.ic_paypal
 import e_bank_kmp.composeapp.generated.resources.ic_spotify
 import e_bank_kmp.composeapp.generated.resources.ic_visa
+import me.ibrahim.ebank.kmp.domain.constants.QuickActionType
 import me.ibrahim.ebank.kmp.domain.models.Card
 import me.ibrahim.ebank.kmp.domain.models.QuickAction
 import me.ibrahim.ebank.kmp.domain.models.SchedulePayment
@@ -76,17 +77,20 @@ class HomeComponentImpl(private val doAction: (HomePageAction) -> Unit) : HomeCo
             QuickAction(
                 title = "Money Transfer",
                 icon = Res.drawable.ic_money_transfer,
-                iconColor = Color.ThemeColor_Green
+                iconColor = Color.ThemeColor_Green,
+                type = QuickActionType.MONEY_TRANSFER
             ),
             QuickAction(
                 title = "Pay Bill",
                 icon = Res.drawable.ic_pay_bill,
-                iconColor = Color.ThemeColor_Blue
+                iconColor = Color.ThemeColor_Blue,
+                type = QuickActionType.PAY_BILL
             ),
             QuickAction(
                 title = "Bank to Bank",
                 icon = Res.drawable.ic_bank,
-                iconColor = Color.ThemeColor_Grey
+                iconColor = Color.ThemeColor_Grey,
+                type = QuickActionType.BANK_TO_BANK
             ),
         )
         _state.update { it.copy(quickActions = actions) }

@@ -25,9 +25,6 @@ import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,7 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import e_bank_kmp.composeapp.generated.resources.Res
 import e_bank_kmp.composeapp.generated.resources.active
 import e_bank_kmp.composeapp.generated.resources.card_status
@@ -50,6 +47,7 @@ import e_bank_kmp.composeapp.generated.resources.ic_forward_arrow
 import e_bank_kmp.composeapp.generated.resources.ic_lock_card
 import e_bank_kmp.composeapp.generated.resources.ic_notifications
 import e_bank_kmp.composeapp.generated.resources.lock_card
+import e_bank_kmp.composeapp.generated.resources.my_card
 import e_bank_kmp.composeapp.generated.resources.save
 import e_bank_kmp.composeapp.generated.resources.settings
 import me.ibrahim.ebank.kmp.presentation.composables.CardsPager
@@ -70,10 +68,7 @@ import kotlin.math.round
 @Composable
 fun CardSettingsUI(component: CardSettingsComponent) {
 
-    val card by component.card.collectAsStateWithLifecycle()
-
-    var lockCard by remember { mutableStateOf(false) }
-    var deactivateCard by remember { mutableStateOf(false) }
+    val state by component.state.subscribeAsState()
 
     InteractionBlocker(
         modifier = Modifier.fillMaxSize(),
@@ -93,7 +88,7 @@ fun CardSettingsUI(component: CardSettingsComponent) {
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 CustomAppBar(
-                    title = "My Card",
+                    title = stringResource(Res.string.my_card),
                     modifier = Modifier.statusBarsPadding(),
                     leadingIcon = {
                         IconButton(
@@ -125,7 +120,7 @@ fun CardSettingsUI(component: CardSettingsComponent) {
                     }
                 )
 
-                CardsPager(cards = listOf(card), horizontalPadding = 16.dp)
+                CardsPager(cards = listOf(state.selectedCard), horizontalPadding = 16.dp)
 
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -151,7 +146,7 @@ fun CardSettingsUI(component: CardSettingsComponent) {
                                 )
                             )
                             Text(
-                                text = "AED ${(round((card.balance / 11.0) * 100.0) / 100.0)}",
+                                text = "AED ${(round((state.selectedCard.balance / 11.0) * 100.0) / 100.0)}",
                                 style = TextStyle(
                                     color = Color.ThemeColor_Green,
                                     fontSize = 18.sp,
@@ -237,8 +232,8 @@ fun CardSettingsUI(component: CardSettingsComponent) {
                     trailing = {
                         Switch(
                             modifier = Modifier.height(10.dp),
-                            checked = lockCard,
-                            onCheckedChange = { lockCard = it },
+                            checked = state.lockCard,
+                            onCheckedChange = { component.onAction(CardSettingsUIAction.LockCard(it)) },
                             colors = SwitchDefaults.colors(
                                 uncheckedTrackColor = Color.ThemeColor_Grey.copy(alpha = 0.5f),
                                 checkedTrackColor = Color.ThemeColor_Blue,
@@ -264,8 +259,8 @@ fun CardSettingsUI(component: CardSettingsComponent) {
                     trailing = {
                         Switch(
                             modifier = Modifier,
-                            checked = deactivateCard,
-                            onCheckedChange = { deactivateCard = it },
+                            checked = state.deactivateCard,
+                            onCheckedChange = { component.onAction(CardSettingsUIAction.DeActivateCard(it)) },
                             colors = SwitchDefaults.colors(
                                 uncheckedTrackColor = Color.ThemeColor_Grey.copy(alpha = 0.5f),
                                 checkedTrackColor = Color.ThemeColor_Blue,

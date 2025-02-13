@@ -5,6 +5,7 @@ import com.arkivanov.decompose.value.Value
 import me.ibrahim.ebank.kmp.presentation.decompose.card_settings.CardSettingsComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.MoneyTransferComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.splash.SplashComponent
@@ -20,5 +21,6 @@ interface EBankRoot {
         data class Signup(val component: SignupComponent) : MainDestinationChild()
         data class Home(val component: HomeComponent) : MainDestinationChild()
         data class CardSettings(val component: CardSettingsComponent) : MainDestinationChild()
+        data class MoneyTransfer(val component: MoneyTransferComponent) : MainDestinationChild()
     }
 }
