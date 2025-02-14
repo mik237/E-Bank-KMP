@@ -20,14 +20,20 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.sharp.ArrowBackIos
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,8 +50,10 @@ import e_bank_kmp.composeapp.generated.resources.ic_notifications
 import e_bank_kmp.composeapp.generated.resources.money_transfers
 import e_bank_kmp.composeapp.generated.resources.recent_transfers
 import e_bank_kmp.composeapp.generated.resources.search
+import kotlinx.coroutines.launch
 import me.ibrahim.ebank.kmp.presentation.composables.CustomAppBar
 import me.ibrahim.ebank.kmp.presentation.composables.CustomButton
+import me.ibrahim.ebank.kmp.presentation.composables.EnterAmountScreen
 import me.ibrahim.ebank.kmp.presentation.composables.InteractionBlocker
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.MoneyTransferComponent
 import me.ibrahim.ebank.kmp.utils.StrokeGrey
@@ -55,219 +63,244 @@ import me.ibrahim.ebank.kmp.utils.ThemeColor_LightGrey
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoneyTransfersUI(component: MoneyTransferComponent) {
 
     val state by component.state.subscribeAsState()
 
-    InteractionBlocker(
-        modifier = Modifier.fillMaxSize(),
-        blockCondition = false
+    val bottomSheetState = rememberStandardBottomSheetState(initialValue = SheetValue.Hidden, skipHiddenState = false)
+    val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = bottomSheetState)
+    val coroutineScope = rememberCoroutineScope()
+
+
+    BottomSheetScaffold(
+        scaffoldState = scaffoldState,
+        sheetPeekHeight = 0.dp,
+        sheetContent = {
+            EnterAmountScreen(scaffoldState) {
+                println("BottomSheet_state: ${bottomSheetState.currentValue} Amount: $it")
+            }
+        },
+        sheetDragHandle = {},
+        sheetTonalElevation = 0.dp,
+        sheetShadowElevation = 15.dp
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.White)
+        InteractionBlocker(
+            modifier = Modifier.fillMaxSize(),
+            blockCondition = false
         ) {
-            Column(
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .navigationBarsPadding()
-                    .verticalScroll(state = rememberScrollState())
-                    .imePadding(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+                    .background(color = Color.White)
             ) {
-
-                CustomAppBar(
-                    title = stringResource(Res.string.money_transfers),
-                    modifier = Modifier.statusBarsPadding(),
-                    leadingIcon = {
-                        IconButton(
-                            onClick = { component.onAction(MoneyTransfersUiAction.OnBackClick) },
-                            modifier = Modifier.size(40.dp)
-                                .clip(CircleShape)
-                                .background(color = Color.StrokeGrey.copy(alpha = 0.25f))
-                        ) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Sharp.ArrowBackIos,
-                                contentDescription = null,
-                                tint = Color.StrokeGrey
-                            )
-                        }
-                    },
-                    actions = {
-                        IconButton(
-                            onClick = {},
-                            modifier = Modifier.size(40.dp)
-                                .clip(CircleShape)
-                                .background(color = Color.StrokeGrey.copy(alpha = 0.25f))
-                        ) {
-                            Icon(
-                                painter = painterResource(Res.drawable.ic_notifications),
-                                contentDescription = null,
-                                tint = Color.StrokeGrey
-                            )
-                        }
-                    }
-                )
-
-                // Search Bar
-                OutlinedTextField(
-                    value = state.searchKey,
-                    onValueChange = { component.onAction(MoneyTransfersUiAction.OnSearch(it)) },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Search, contentDescription = stringResource(Res.string.search),
-                            tint = Color.ThemeColor_Grey
-                        )
-                    },
-                    placeholder = {
-                        Text(
-                            stringResource(Res.string.search),
-                            style = TextStyle(
-                                color = Color.ThemeColor_Grey,
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 16.sp
-                            )
-                        )
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .clip(RoundedCornerShape(12.dp)),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color.ThemeColor_Blue,
-                        unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                        unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                        focusedContainerColor = Color.White
-                    )
-                )
-
-                // Recent Transfers
-                Text(
-                    text = stringResource(Res.string.recent_transfers),
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
-                )
-
-                // Recent Transfers list
-                RecentTransfersUI(recentTransfers = state.recentTransfers)
-
-
-                // Make New Transfer Section
-                Text(
-                    text = "Make new transfer",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
-                )
-
                 Column(
                     modifier = Modifier
-                        .padding(horizontal = 16.dp)
+                        .fillMaxSize()
+                        .navigationBarsPadding()
+                        .verticalScroll(state = rememberScrollState())
+                        .imePadding(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
-                        placeholder = { Text("Name") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 8.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color.ThemeColor_Blue,
-                            unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                            unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                            focusedContainerColor = Color.White
-                        )
-                    )
 
-                    OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
-                        placeholder = { Text("Enter Account Number") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 8.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color.ThemeColor_Blue,
-                            unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                            unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                            focusedContainerColor = Color.White
-                        )
-                    )
-
-                    OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
-                        placeholder = { Text("Reciever's Mobile Number") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 8.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color.ThemeColor_Blue,
-                            unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                            unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                            focusedContainerColor = Color.White
-                        )
-                    )
-
-                    OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
-                        placeholder = { Text("Purpose of payment (Optional)") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 8.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color.ThemeColor_Blue,
-                            unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                            unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                            focusedContainerColor = Color.White
-                        )
-                    )
-
-                    OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
-                        placeholder = { Text("Pasword") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 16.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color.ThemeColor_Blue,
-                            unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                            unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
-                            focusedContainerColor = Color.White
-                        ),
-                        trailingIcon = {
-                            IconButton(onClick = { /*TODO*/ }) {
-                                Icon(imageVector = Icons.Outlined.Lock, contentDescription = "Password")
+                    CustomAppBar(
+                        title = stringResource(Res.string.money_transfers),
+                        modifier = Modifier.statusBarsPadding(),
+                        leadingIcon = {
+                            IconButton(
+                                onClick = { component.onAction(MoneyTransfersUiAction.OnBackClick) },
+                                modifier = Modifier.size(40.dp)
+                                    .clip(CircleShape)
+                                    .background(color = Color.StrokeGrey.copy(alpha = 0.25f))
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Sharp.ArrowBackIos,
+                                    contentDescription = null,
+                                    tint = Color.StrokeGrey
+                                )
+                            }
+                        },
+                        actions = {
+                            IconButton(
+                                onClick = {},
+                                modifier = Modifier.size(40.dp)
+                                    .clip(CircleShape)
+                                    .background(color = Color.StrokeGrey.copy(alpha = 0.25f))
+                            ) {
+                                Icon(
+                                    painter = painterResource(Res.drawable.ic_notifications),
+                                    contentDescription = null,
+                                    tint = Color.StrokeGrey
+                                )
                             }
                         }
                     )
 
-
-                    CustomButton(
+                    // Search Bar
+                    OutlinedTextField(
+                        value = state.searchKey,
+                        onValueChange = { component.onAction(MoneyTransfersUiAction.OnSearch(it)) },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Search, contentDescription = stringResource(Res.string.search),
+                                tint = Color.ThemeColor_Grey
+                            )
+                        },
+                        placeholder = {
+                            Text(
+                                stringResource(Res.string.search),
+                                style = TextStyle(
+                                    color = Color.ThemeColor_Grey,
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 16.sp
+                                )
+                            )
+                        },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 16.dp)
-                            .height(55.dp)
-                            .padding(horizontal = 16.dp),
-                        text = stringResource(Res.string.`continue`),
-                        onClick = {},
-                        containerColor = Color.ThemeColor_Blue,
-                        contentColor = Color.White
+                            .padding(16.dp)
+                            .clip(RoundedCornerShape(12.dp)),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color.ThemeColor_Blue,
+                            unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                            unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                            focusedContainerColor = Color.White
+                        )
                     )
+
+                    // Recent Transfers
+                    Text(
+                        text = stringResource(Res.string.recent_transfers),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
+                    )
+
+                    // Recent Transfers list
+                    RecentTransfersUI(recentTransfers = state.recentTransfers)
+
+
+                    // Make New Transfer Section
+                    Text(
+                        text = "Make new transfer",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
+                    )
+
+                    Column(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = "",
+                            onValueChange = {},
+                            placeholder = { Text("Name") },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 8.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color.ThemeColor_Blue,
+                                unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                                unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                                focusedContainerColor = Color.White
+                            )
+                        )
+
+                        OutlinedTextField(
+                            value = "",
+                            onValueChange = {},
+                            placeholder = { Text("Enter Account Number") },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 8.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color.ThemeColor_Blue,
+                                unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                                unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                                focusedContainerColor = Color.White
+                            )
+                        )
+
+                        OutlinedTextField(
+                            value = "",
+                            onValueChange = {},
+                            placeholder = { Text("Reciever's Mobile Number") },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 8.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color.ThemeColor_Blue,
+                                unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                                unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                                focusedContainerColor = Color.White
+                            )
+                        )
+
+                        OutlinedTextField(
+                            value = "",
+                            onValueChange = {},
+                            placeholder = { Text("Purpose of payment (Optional)") },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 8.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color.ThemeColor_Blue,
+                                unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                                unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                                focusedContainerColor = Color.White
+                            )
+                        )
+
+                        OutlinedTextField(
+                            value = "",
+                            onValueChange = {},
+                            placeholder = { Text("Pasword") },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 16.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color.ThemeColor_Blue,
+                                unfocusedBorderColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                                unfocusedContainerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f),
+                                focusedContainerColor = Color.White
+                            ),
+                            trailingIcon = {
+                                IconButton(onClick = { /*TODO*/ }) {
+                                    Icon(imageVector = Icons.Outlined.Lock, contentDescription = "Password")
+                                }
+                            }
+                        )
+
+
+                        CustomButton(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp)
+                                .height(55.dp)
+                                .padding(horizontal = 16.dp),
+                            text = stringResource(Res.string.`continue`),
+                            onClick = {
+                                coroutineScope.launch {
+                                    if (bottomSheetState.currentValue != SheetValue.Expanded) {
+                                        scaffoldState.bottomSheetState.expand()
+                                    }
+                                }
+                            },
+                            containerColor = Color.ThemeColor_Blue,
+                            contentColor = Color.White
+                        )
+                    }
                 }
             }
         }
