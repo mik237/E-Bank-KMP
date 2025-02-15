@@ -26,13 +26,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import me.ibrahim.ebank.kmp.domain.models.RecentTransfer
+import me.ibrahim.ebank.kmp.domain.models.RecipientInfo
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_LightGrey
 
 @Composable
-fun RecentTransferItem(transfer: RecentTransfer, currentIndex: Int, selectedIndex: Int, onClick: () -> Unit) {
+fun RecentTransferItem(transfer: RecipientInfo, currentIndex: Int, selectedIndex: Int, onClick: () -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp),

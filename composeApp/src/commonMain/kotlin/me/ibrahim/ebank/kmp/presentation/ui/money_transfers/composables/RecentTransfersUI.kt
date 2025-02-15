@@ -11,13 +11,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import me.ibrahim.ebank.kmp.domain.models.RecentTransfer
+import me.ibrahim.ebank.kmp.domain.models.RecipientInfo
 
 @Composable
 fun RecentTransfersUI(
     modifier: Modifier = Modifier,
-    recentTransfers: List<RecentTransfer>,
-    onClick: (RecentTransfer) -> Unit
+    recipientInfos: List<RecipientInfo>,
+    onClick: (RecipientInfo) -> Unit
 ) {
 
     var selectedIndex by remember { mutableIntStateOf(-1) }
@@ -27,7 +27,7 @@ fun RecentTransfersUI(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        itemsIndexed(recentTransfers, key = { _, transfer -> transfer.name }) { index, transfer ->
+        itemsIndexed(recipientInfos, key = { _, transfer -> transfer.name }) { index, transfer ->
             RecentTransferItem(
                 transfer = transfer,
                 currentIndex = index,

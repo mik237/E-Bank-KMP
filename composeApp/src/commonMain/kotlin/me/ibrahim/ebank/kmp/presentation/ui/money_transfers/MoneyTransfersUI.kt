@@ -79,11 +79,11 @@ fun MoneyTransfersUI(component: MoneyTransferComponent) {
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(state.uiState) {
-        if (state.uiState == MoneyTransferUiState.Continue && state.currentCard != null && state.recentTransfer != null) {
+        if (state.uiState == MoneyTransferUiState.Continue && state.currentCard != null && state.recipientInfo != null) {
             //Move to TransferPreviewUI
             component.onAction(
                 MoneyTransfersUiAction.OnContinue(
-                    state.currentCard!!, state.recentTransfer!!, state.amount
+                    state.currentCard!!, state.recipientInfo!!, state.amount
                 )
             )
         }
@@ -97,7 +97,7 @@ fun MoneyTransfersUI(component: MoneyTransferComponent) {
                 amount?.let {
                     component.onAction(MoneyTransfersUiAction.OnAmountSelected(it))
                 }
-                println("BottomSheet_state: card: ${state.currentCard?.balance} Amount: $amount, To: ${state.recentTransfer?.name}")
+                println("BottomSheet_state: card: ${state.currentCard?.balance} Amount: $amount, To: ${state.recipientInfo?.name}")
             }
         },
         sheetDragHandle = {},
@@ -211,7 +211,7 @@ fun MoneyTransfersUI(component: MoneyTransferComponent) {
                     )
 
                     // Recent Transfers list
-                    RecentTransfersUI(recentTransfers = state.recentTransfers) {
+                    RecentTransfersUI(recipientInfos = state.recipientInfos) {
                         component.onAction(MoneyTransfersUiAction.OnRecentTransferClick(it))
                     }
 

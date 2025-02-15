@@ -14,13 +14,15 @@ import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
 import me.ibrahim.ebank.kmp.domain.constants.QuickAction
 import me.ibrahim.ebank.kmp.domain.models.Card
-import me.ibrahim.ebank.kmp.domain.models.RecentTransfer
+import me.ibrahim.ebank.kmp.domain.models.RecipientInfo
 import me.ibrahim.ebank.kmp.presentation.decompose.card_settings.CardSettingsComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.card_settings.CardSettingsComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponentImpl
+import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.ConfirmTransferComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.ConfirmTransferComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.MoneyTransferComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.MoneyTransferComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.TransferPreviewComponent
@@ -69,9 +71,23 @@ class EBankRootImpl(
             )
 
             is MainNavigationConfig.TransferPreview -> EBankRoot.MainDestinationChild.TransferPreview(
-                component = buildTransferPreviewComponent(config.card, config.amount, config.recentTransfer)
+                component = buildTransferPreviewComponent(config.card, config.amount, config.recipientInfo)
+            )
+
+            is MainNavigationConfig.TransferConfirmation -> EBankRoot.MainDestinationChild.TransferConfirmation(
+                component = buildTransferConfirmationComponent(
+                    config.card,
+                    config.amount,
+                    config.recipientInfo
+                )
             )
         }
+    }
+
+    private fun buildTransferConfirmationComponent(card: Card, amount: Double, recipientInfo: RecipientInfo): ConfirmTransferComponent {
+        return ConfirmTransferComponentImpl(card = card, amount = amount, recipientInfo = recipientInfo, onBackClick = {
+            navigation.pop()
+        })
     }
 
     private fun buildSplashComponent(): SplashComponent {
@@ -130,9 +146,11 @@ class EBankRootImpl(
             })
     }
 
-    private fun buildTransferPreviewComponent(card: Card, amount: Double, recentTransfer: RecentTransfer): TransferPreviewComponent {
+    private fun buildTransferPreviewComponent(card: Card, amount: Double, recipientInfo: RecipientInfo): TransferPreviewComponent {
         return TransferPreviewComponentImpl(
-            card = card, amount = amount, recentTransfer = recentTransfer, onBackClick = { navigation.pop() })
+            card = card, amount = amount, recipientInfo = recipientInfo,
+            onBackClick = { navigation.pop() },
+            onContinueClick = { navigation.replaceCurrent(MainNavigationConfig.TransferConfirmation(card, recipientInfo, amount)) })
     }
 
     @Serializable
@@ -145,6 +163,7 @@ class EBankRootImpl(
         data object Home : MainNavigationConfig()
         data class CardSettings(val card: Card) : MainNavigationConfig()
         data class MoneyTransfer(val card: Card) : MainNavigationConfig()
-        data class TransferPreview(val card: Card, val recentTransfer: RecentTransfer, val amount: Double) : MainNavigationConfig()
+        data class TransferPreview(val card: Card, val recipientInfo: RecipientInfo, val amount: Double) : MainNavigationConfig()
+        data class TransferConfirmation(val card: Card, val recipientInfo: RecipientInfo, val amount: Double) : MainNavigationConfig()
     }
 }
