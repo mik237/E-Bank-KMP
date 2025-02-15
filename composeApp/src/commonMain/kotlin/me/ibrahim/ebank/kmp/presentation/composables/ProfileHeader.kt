@@ -1,6 +1,5 @@
 package me.ibrahim.ebank.kmp.presentation.composables
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -21,9 +20,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import e_bank_kmp.composeapp.generated.resources.Res
 import e_bank_kmp.composeapp.generated.resources.ic_notifications
-import e_bank_kmp.composeapp.generated.resources.ic_profile
 import me.ibrahim.ebank.kmp.utils.StrokeGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import org.jetbrains.compose.resources.painterResource
@@ -37,11 +36,11 @@ fun ProfileHeader(modifier: Modifier = Modifier, title: String) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        Image(
+        AsyncImage(
+            model = "https://randomuser.me/api/portraits/men/97.jpg",
             modifier = Modifier
                 .size(45.dp)
                 .clip(CircleShape),
-            painter = painterResource(Res.drawable.ic_profile),
             contentDescription = null,
             contentScale = ContentScale.Crop
         )
