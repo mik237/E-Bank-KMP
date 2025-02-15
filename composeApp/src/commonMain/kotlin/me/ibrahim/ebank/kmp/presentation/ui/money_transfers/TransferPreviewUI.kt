@@ -42,7 +42,6 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import e_bank_kmp.composeapp.generated.resources.Res
-import e_bank_kmp.composeapp.generated.resources.avatar
 import e_bank_kmp.composeapp.generated.resources.card
 import e_bank_kmp.composeapp.generated.resources.confirmation
 import e_bank_kmp.composeapp.generated.resources.`continue`
@@ -62,6 +61,7 @@ import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.composables.Transfer
 import me.ibrahim.ebank.kmp.utils.StrokeGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_LightGrey
+import me.ibrahim.ebank.kmp.utils.maskAccountNumber
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -139,14 +139,14 @@ fun TransferPreviewUI(component: TransferPreviewComponent) {
             ) {
                 Row(
                     modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .padding(16.dp)
                         .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         AsyncImage(
-                            model = state.recentTransfer.imageUrl,
+                            model = state.recipientInfo.imageUrl,
                             contentDescription = "transfer.name",
                             modifier = Modifier.clip(CircleShape)
                                 .size(54.dp)
@@ -155,8 +155,8 @@ fun TransferPreviewUI(component: TransferPreviewComponent) {
                         )
                         Spacer(modifier = Modifier.width(16.dp))
                         Column {
-                            Text(text = state.recentTransfer.name, fontWeight = FontWeight.Bold)
-                            Text(text = "1******6103", color = Color.Gray)
+                            Text(text = state.recipientInfo.name, fontWeight = FontWeight.Bold)
+                            Text(text = maskAccountNumber(state.recipientInfo.accountNumber), color = Color.Gray)
                         }
                     }
 
@@ -188,7 +188,7 @@ fun TransferPreviewUI(component: TransferPreviewComponent) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                        .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
