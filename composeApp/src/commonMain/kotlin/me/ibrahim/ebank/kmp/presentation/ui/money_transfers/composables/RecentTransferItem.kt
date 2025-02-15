@@ -1,6 +1,8 @@
-package me.ibrahim.ebank.kmp.presentation.ui.money_transfers
+package me.ibrahim.ebank.kmp.presentation.ui.money_transfers.composables
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,11 +27,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import me.ibrahim.ebank.kmp.domain.models.RecentTransfer
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_LightGrey
 
 @Composable
-fun RecentTransferItem(transfer: RecentTransfer) {
+fun RecentTransferItem(transfer: RecentTransfer, currentIndex: Int, selectedIndex: Int, onClick: () -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp),
@@ -44,10 +47,14 @@ fun RecentTransferItem(transfer: RecentTransfer) {
                 color = Color.White,
                 shape = RoundedCornerShape(10.dp)
             )
+            .border(
+                border = if (selectedIndex == currentIndex) BorderStroke(1.dp, Color.ThemeColor_Blue) else BorderStroke(0.dp, Color.Transparent),
+                shape = RoundedCornerShape(10.dp)
+            )
             .padding(15.dp)
             .padding(horizontal = 15.dp)
             .clickable {
-                // Handle item click
+                onClick()
             }
     ) {
 

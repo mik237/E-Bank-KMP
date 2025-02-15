@@ -1,6 +1,5 @@
 package me.ibrahim.ebank.kmp.presentation.decompose.home
 
-import androidx.compose.ui.graphics.Color
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.update
@@ -9,23 +8,15 @@ import e_bank_kmp.composeapp.generated.resources.Res
 import e_bank_kmp.composeapp.generated.resources.card_black
 import e_bank_kmp.composeapp.generated.resources.card_blue
 import e_bank_kmp.composeapp.generated.resources.card_green
-import e_bank_kmp.composeapp.generated.resources.ic_bank
-import e_bank_kmp.composeapp.generated.resources.ic_money_transfer
 import e_bank_kmp.composeapp.generated.resources.ic_netflix
-import e_bank_kmp.composeapp.generated.resources.ic_pay_bill
 import e_bank_kmp.composeapp.generated.resources.ic_paypal
 import e_bank_kmp.composeapp.generated.resources.ic_spotify
 import e_bank_kmp.composeapp.generated.resources.ic_visa
-import me.ibrahim.ebank.kmp.domain.constants.QuickActionType
 import me.ibrahim.ebank.kmp.domain.models.Card
-import me.ibrahim.ebank.kmp.domain.models.QuickAction
 import me.ibrahim.ebank.kmp.domain.models.SchedulePayment
 import me.ibrahim.ebank.kmp.presentation.ui.home.HomePageAction
 import me.ibrahim.ebank.kmp.presentation.ui.home.HomePageState
 import me.ibrahim.ebank.kmp.utils.CardType
-import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
-import me.ibrahim.ebank.kmp.utils.ThemeColor_Green
-import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 
 class HomeComponentImpl(private val doAction: (HomePageAction) -> Unit) : HomeComponent, InstanceKeeper.Instance {
 
@@ -37,7 +28,6 @@ class HomeComponentImpl(private val doAction: (HomePageAction) -> Unit) : HomeCo
 
     init {
         createCardsList()
-        createQuickActionsList()
         createSchedulePayments()
     }
 
@@ -70,30 +60,6 @@ class HomeComponentImpl(private val doAction: (HomePageAction) -> Unit) : HomeCo
         )
 
         _state.update { it.copy(schedulePayments = schedulePayments) }
-    }
-
-    private fun createQuickActionsList() {
-        val actions = listOf(
-            QuickAction(
-                title = "Money Transfer",
-                icon = Res.drawable.ic_money_transfer,
-                iconColor = Color.ThemeColor_Green,
-                type = QuickActionType.MONEY_TRANSFER
-            ),
-            QuickAction(
-                title = "Pay Bill",
-                icon = Res.drawable.ic_pay_bill,
-                iconColor = Color.ThemeColor_Blue,
-                type = QuickActionType.PAY_BILL
-            ),
-            QuickAction(
-                title = "Bank to Bank",
-                icon = Res.drawable.ic_bank,
-                iconColor = Color.ThemeColor_Grey,
-                type = QuickActionType.BANK_TO_BANK
-            ),
-        )
-        _state.update { it.copy(quickActions = actions) }
     }
 
     private fun createCardsList() {
