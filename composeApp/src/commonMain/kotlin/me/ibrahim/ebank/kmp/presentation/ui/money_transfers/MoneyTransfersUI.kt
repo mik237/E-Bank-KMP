@@ -32,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -60,6 +61,7 @@ import me.ibrahim.ebank.kmp.utils.StrokeGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_LightGrey
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Red
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -73,13 +75,26 @@ fun MoneyTransfersUI(component: MoneyTransferComponent) {
     val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = bottomSheetState)
     val coroutineScope = rememberCoroutineScope()
 
+    LaunchedEffect(state.uiState) {
+        if (state.uiState == MoneyTransferUiState.Continue && state.currentCard != null && state.recentTransfer != null) {
+            //Move to TransferPreviewUI
+            component.onAction(
+                MoneyTransfersUiAction.OnContinue(
+                    state.currentCard!!, state.recentTransfer!!, state.amount
+                )
+            )
+        }
+    }
 
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetPeekHeight = 0.dp,
         sheetContent = {
-            EnterAmountScreen(scaffoldState) {
-                println("BottomSheet_state: ${bottomSheetState.currentValue} Amount: $it")
+            EnterAmountScreen(scaffoldState) { amount ->
+                amount?.let {
+                    component.onAction(MoneyTransfersUiAction.OnAmountSelected(it))
+                }
+                println("BottomSheet_state: card: ${state.currentCard?.balance} Amount: $amount, To: ${state.recentTransfer?.name}")
             }
         },
         sheetDragHandle = {},
@@ -171,6 +186,18 @@ fun MoneyTransfersUI(component: MoneyTransferComponent) {
                         )
                     )
 
+                    if (state.uiState is MoneyTransferUiState.Error) {
+                        // Choose Reciepent Error
+                        Text(
+                            text = "** Choose Recipient",
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Medium,
+                            textAlign = TextAlign.Start,
+                            color = Color.ThemeColor_Red,
+                            fontSize = 20.sp,
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                        )
+                    }
                     // Recent Transfers
                     Text(
                         text = stringResource(Res.string.recent_transfers),
@@ -181,7 +208,9 @@ fun MoneyTransfersUI(component: MoneyTransferComponent) {
                     )
 
                     // Recent Transfers list
-                    RecentTransfersUI(recentTransfers = state.recentTransfers)
+                    RecentTransfersUI(recentTransfers = state.recentTransfers) {
+                        component.onAction(MoneyTransfersUiAction.OnRecentTransferClick(it))
+                    }
 
 
                     // Make New Transfer Section

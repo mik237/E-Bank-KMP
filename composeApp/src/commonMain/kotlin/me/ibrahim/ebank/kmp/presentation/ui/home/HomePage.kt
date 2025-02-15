@@ -70,9 +70,8 @@ fun HomePage(component: HomeComponent) {
                 )
 
                 QuickActionsUI(
-                    actions = state.quickActions,
                     modifier = Modifier.padding(top = 12.dp),
-                    onClick = { component.onAction(HomePageAction.OnQuickActionClick(it)) }
+                    onClick = { component.onAction(HomePageAction.OnQuickActionClick(it, card = state.cards[pagerState.currentPage])) }
                 )
 
                 QuickServicesUI(modifier = Modifier.padding(top = 18.dp))

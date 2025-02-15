@@ -22,15 +22,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import me.ibrahim.ebank.kmp.domain.constants.QuickActionType
-import me.ibrahim.ebank.kmp.domain.models.QuickAction
+import me.ibrahim.ebank.kmp.domain.constants.QuickAction
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 import me.ibrahim.ebank.kmp.utils.getScreenWidth
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun QuickActionsUI(modifier: Modifier = Modifier, actions: List<QuickAction>, onClick: (QuickActionType) -> Unit) {
+fun QuickActionsUI(modifier: Modifier = Modifier, onClick: (QuickAction) -> Unit) {
 
     val size = getScreenWidth() / 3f
 
@@ -54,7 +53,7 @@ fun QuickActionsUI(modifier: Modifier = Modifier, actions: List<QuickAction>, on
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(actions, key = { it.title }) { quickAction ->
+            items(QuickAction.toList(), key = { it.title }) { quickAction ->
                 Box(
                     modifier = Modifier
                         .size(size)
@@ -63,10 +62,8 @@ fun QuickActionsUI(modifier: Modifier = Modifier, actions: List<QuickAction>, on
                             shape = RoundedCornerShape(10.dp),
                             clip = false,
                             spotColor = Color.ThemeColor_Grey
-                        )
-                        .background(Color.White, shape = RoundedCornerShape(10.dp)) // Rounded corners
-                        .clickable {
-                            onClick(quickAction.type) }
+                        ).background(Color.White, shape = RoundedCornerShape(10.dp)) // Rounded corners
+                        .clickable { onClick(quickAction) }
 
                 ) {
                     Column(

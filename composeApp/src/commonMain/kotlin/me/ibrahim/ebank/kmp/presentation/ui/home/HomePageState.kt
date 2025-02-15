@@ -1,12 +1,10 @@
 package me.ibrahim.ebank.kmp.presentation.ui.home
 
 import me.ibrahim.ebank.kmp.domain.models.Card
-import me.ibrahim.ebank.kmp.domain.models.QuickAction
 import me.ibrahim.ebank.kmp.domain.models.SchedulePayment
 
 data class HomePageState(
     val cards: List<Card> = emptyList(),
-    val quickActions: List<QuickAction> = emptyList(),
     val schedulePayments: List<SchedulePayment> = emptyList(),
     val uiState: HomePageUiState = HomePageUiState.Default
 )

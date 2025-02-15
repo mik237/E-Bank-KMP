@@ -10,6 +10,7 @@ import me.ibrahim.ebank.kmp.presentation.ui.card_settings.CardSettingsUI
 import me.ibrahim.ebank.kmp.presentation.ui.home.HomePage
 import me.ibrahim.ebank.kmp.presentation.ui.login.LoginPage
 import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.MoneyTransfersUI
+import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.TransferPreviewUI
 import me.ibrahim.ebank.kmp.presentation.ui.onboarding.OnBoardingPage
 import me.ibrahim.ebank.kmp.presentation.ui.signup.SignupPage
 import me.ibrahim.ebank.kmp.presentation.ui.splash.SplashPage
@@ -30,6 +31,7 @@ fun EBankApp(root: EBankRoot) {
                 is EBankRoot.MainDestinationChild.Home -> HomePage(child.component)
                 is EBankRoot.MainDestinationChild.CardSettings -> CardSettingsUI(child.component)
                 is EBankRoot.MainDestinationChild.MoneyTransfer -> MoneyTransfersUI(child.component)
+                is EBankRoot.MainDestinationChild.TransferPreview -> TransferPreviewUI(child.component)
             }
         }
     }
