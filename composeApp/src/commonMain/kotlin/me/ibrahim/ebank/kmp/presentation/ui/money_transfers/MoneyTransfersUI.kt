@@ -57,6 +57,9 @@ import me.ibrahim.ebank.kmp.presentation.composables.CustomButton
 import me.ibrahim.ebank.kmp.presentation.composables.EnterAmountScreen
 import me.ibrahim.ebank.kmp.presentation.composables.InteractionBlocker
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.MoneyTransferComponent
+import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.actions.MoneyTransfersUiAction
+import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.composables.RecentTransfersUI
+import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.states.MoneyTransferUiState
 import me.ibrahim.ebank.kmp.utils.StrokeGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey

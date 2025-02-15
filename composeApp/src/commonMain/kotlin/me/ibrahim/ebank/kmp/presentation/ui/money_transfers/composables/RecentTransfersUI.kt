@@ -1,4 +1,4 @@
-package me.ibrahim.ebank.kmp.presentation.ui.money_transfers
+package me.ibrahim.ebank.kmp.presentation.ui.money_transfers.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues

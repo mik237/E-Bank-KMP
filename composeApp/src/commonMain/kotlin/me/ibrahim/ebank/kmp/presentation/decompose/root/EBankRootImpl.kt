@@ -69,9 +69,7 @@ class EBankRootImpl(
             )
 
             is MainNavigationConfig.TransferPreview -> EBankRoot.MainDestinationChild.TransferPreview(
-                component = buildTransferPreviewComponent(
-                    config.card
-                )
+                component = buildTransferPreviewComponent(config.card, config.amount, config.recentTransfer)
             )
         }
     }
@@ -132,8 +130,9 @@ class EBankRootImpl(
             })
     }
 
-    private fun buildTransferPreviewComponent(card: Card): TransferPreviewComponent {
-        return TransferPreviewComponentImpl(onBackClick = { navigation.pop() })
+    private fun buildTransferPreviewComponent(card: Card, amount: Double, recentTransfer: RecentTransfer): TransferPreviewComponent {
+        return TransferPreviewComponentImpl(
+            card = card, amount = amount, recentTransfer = recentTransfer, onBackClick = { navigation.pop() })
     }
 
     @Serializable

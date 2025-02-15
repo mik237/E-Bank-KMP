@@ -1,4 +1,4 @@
-package me.ibrahim.ebank.kmp.presentation.ui.money_transfers
+package me.ibrahim.ebank.kmp.presentation.ui.money_transfers.actions
 
 import me.ibrahim.ebank.kmp.domain.models.Card
 import me.ibrahim.ebank.kmp.domain.models.RecentTransfer

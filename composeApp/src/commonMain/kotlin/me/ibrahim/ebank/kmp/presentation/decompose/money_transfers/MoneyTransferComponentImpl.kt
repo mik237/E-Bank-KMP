@@ -6,9 +6,9 @@ import com.arkivanov.decompose.value.update
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import me.ibrahim.ebank.kmp.domain.models.Card
 import me.ibrahim.ebank.kmp.domain.models.RecentTransfer
-import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.MoneyTransferState
-import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.MoneyTransferUiState
-import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.MoneyTransfersUiAction
+import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.states.MoneyTransferState
+import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.states.MoneyTransferUiState
+import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.actions.MoneyTransfersUiAction
 
 class MoneyTransferComponentImpl(
     card: Card, val onBackClick: () -> Unit,

@@ -30,6 +30,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,11 +39,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import e_bank_kmp.composeapp.generated.resources.Res
 import e_bank_kmp.composeapp.generated.resources.avatar
 import e_bank_kmp.composeapp.generated.resources.card
-import e_bank_kmp.composeapp.generated.resources.card_blue
 import e_bank_kmp.composeapp.generated.resources.confirmation
 import e_bank_kmp.composeapp.generated.resources.`continue`
 import e_bank_kmp.composeapp.generated.resources.ic_edit
@@ -56,6 +56,8 @@ import e_bank_kmp.composeapp.generated.resources.transfer_fee
 import me.ibrahim.ebank.kmp.presentation.composables.CustomAppBar
 import me.ibrahim.ebank.kmp.presentation.composables.CustomButton
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.TransferPreviewComponent
+import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.actions.TransferPreviewUiAction
+import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.composables.TransferDetailRow
 import me.ibrahim.ebank.kmp.utils.StrokeGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_LightGrey
@@ -64,6 +66,8 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TransferPreviewUI(component: TransferPreviewComponent) {
+
+    val state by component.state.subscribeAsState()
 
     Box(
         modifier = Modifier
@@ -150,7 +154,7 @@ fun TransferPreviewUI(component: TransferPreviewComponent) {
                         )
                         Spacer(modifier = Modifier.width(16.dp))
                         Column {
-                            Text(text = "Jonathan", fontWeight = FontWeight.Bold)
+                            Text(text = state.recentTransfer.name, fontWeight = FontWeight.Bold)
                             Text(text = "1******6103", color = Color.Gray)
                         }
                     }
@@ -188,7 +192,7 @@ fun TransferPreviewUI(component: TransferPreviewComponent) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Image(
-                        painter = painterResource(Res.drawable.card_blue), // Replace with your actual image resource
+                        painter = painterResource(state.card.cardImage), // Replace with your actual image resource
                         contentDescription = "Debit Card",
                         modifier = Modifier
                             .height(height = 50.dp)
@@ -227,19 +231,19 @@ fun TransferPreviewUI(component: TransferPreviewComponent) {
                 colors = CardDefaults.cardColors(containerColor = Color.ThemeColor_LightGrey.copy(alpha = 0.2f))
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    TransferDetailRow(stringResource(Res.string.transfer_amount), "$250.00 USD")
+                    TransferDetailRow(stringResource(Res.string.transfer_amount), "AED ${state.amount}")
                     HorizontalDivider(
                         thickness = 1.dp,
                         modifier = Modifier.padding(vertical = 16.dp),
                         color = Color.ThemeColor_LightGrey.copy(alpha = 0.5f)
                     )
-                    TransferDetailRow(stringResource(Res.string.transfer_fee), "$0.00 USD")
+                    TransferDetailRow(stringResource(Res.string.transfer_fee), "AED 0.00")
                     HorizontalDivider(
                         thickness = 1.dp,
                         modifier = Modifier.padding(vertical = 16.dp),
                         color = Color.ThemeColor_LightGrey.copy(alpha = 0.5f)
                     )
-                    TransferDetailRow(stringResource(Res.string.total), "$250.00 USD")
+                    TransferDetailRow(stringResource(Res.string.total), "AED ${state.amount}")
                 }
             }
 
@@ -255,16 +259,5 @@ fun TransferPreviewUI(component: TransferPreviewComponent) {
                 contentColor = Color.White
             )
         }
-    }
-}
-
-@Composable
-fun TransferDetailRow(label: String, value: String) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(text = label, color = Color.Gray, fontSize = 16.sp)
-        Text(text = value, fontWeight = FontWeight.Bold, fontSize = 16.sp)
     }
 }
