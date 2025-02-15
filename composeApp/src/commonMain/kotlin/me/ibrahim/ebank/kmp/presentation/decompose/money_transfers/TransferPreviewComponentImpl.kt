@@ -7,7 +7,11 @@ import me.ibrahim.ebank.kmp.domain.models.RecipientInfo
 import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.actions.TransferPreviewUiAction
 import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.states.TransferPreviewState
 
-class TransferPreviewComponentImpl(card: Card, amount: Double, recipientInfo: RecipientInfo, val onBackClick: () -> Unit) :
+class TransferPreviewComponentImpl(
+    card: Card, amount: Double, recipientInfo: RecipientInfo,
+    val onBackClick: () -> Unit,
+    val onContinueClick: () -> Unit
+) :
     TransferPreviewComponent {
 
     private val _state = MutableValue(TransferPreviewState(card = card, recipientInfo = recipientInfo, amount = amount))
@@ -17,7 +21,7 @@ class TransferPreviewComponentImpl(card: Card, amount: Double, recipientInfo: Re
     override fun onAction(action: TransferPreviewUiAction) {
         when (action) {
             TransferPreviewUiAction.OnBackClick -> onBackClick()
-            TransferPreviewUiAction.OnContinueClick -> {}
+            TransferPreviewUiAction.OnContinueClick -> onContinueClick()
         }
     }
 }

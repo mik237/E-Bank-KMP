@@ -255,7 +255,9 @@ fun TransferPreviewUI(component: TransferPreviewComponent) {
                     .height(55.dp)
                     .padding(horizontal = 16.dp),
                 text = stringResource(Res.string.`continue`),
-                onClick = {},
+                onClick = {
+                    component.onAction(TransferPreviewUiAction.OnContinueClick)
+                },
                 containerColor = Color.ThemeColor_Blue,
                 contentColor = Color.White
             )
