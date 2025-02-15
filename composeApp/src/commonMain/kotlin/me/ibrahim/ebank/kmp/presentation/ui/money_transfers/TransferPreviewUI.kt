@@ -39,6 +39,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import e_bank_kmp.composeapp.generated.resources.Res
 import e_bank_kmp.composeapp.generated.resources.avatar
@@ -144,11 +145,11 @@ fun TransferPreviewUI(component: TransferPreviewComponent) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Image(
-                            painter = painterResource(Res.drawable.avatar), //transfer.imageUrl,
+                        AsyncImage(
+                            model = state.recentTransfer.imageUrl,
                             contentDescription = "transfer.name",
                             modifier = Modifier.clip(CircleShape)
-                                .size(64.dp)
+                                .size(54.dp)
                                 .background(Color.Gray),
                             contentScale = ContentScale.Crop,
                         )

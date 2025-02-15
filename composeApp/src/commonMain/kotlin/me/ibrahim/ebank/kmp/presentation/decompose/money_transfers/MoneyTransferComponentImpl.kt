@@ -55,25 +55,25 @@ class MoneyTransferComponentImpl(
                 "Dr. Kamal",
                 "AED 140.00",
                 "",
-                "https://randomuser.me/api/portraits/men/31.jpg"
+                "https://randomuser.me/api/portraits/men/1.jpg"
             ),
             RecentTransfer(
                 "Jonathan",
                 "AED 200.00",
                 "",
-                "https://randomuser.me/api/portraits/men/10.jpg"
+                "https://randomuser.me/api/portraits/men/4.jpg"
             ),
             RecentTransfer(
                 "Will Hopper",
                 "AED 500.00",
                 "",
-                "https://randomuser.me/api/portraits/men/21.jpg"
+                "https://randomuser.me/api/portraits/men/9.jpg"
             ),
             RecentTransfer(
                 "Dr Strange",
                 "AED 350.00",
                 "",
-                "https://randomuser.me/api/portraits/men/12.jpg"
+                "https://randomuser.me/api/portraits/men/29.jpg"
             )
         )
         _state.update { it.copy(recentTransfers = recentTransfers) }
