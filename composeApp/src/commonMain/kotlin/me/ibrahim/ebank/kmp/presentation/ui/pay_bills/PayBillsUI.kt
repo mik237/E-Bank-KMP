@@ -56,6 +56,7 @@ import e_bank_kmp.composeapp.generated.resources.fill_details
 import e_bank_kmp.composeapp.generated.resources.ic_electricity_bill
 import e_bank_kmp.composeapp.generated.resources.ic_internet_bill
 import e_bank_kmp.composeapp.generated.resources.ic_notifications
+import e_bank_kmp.composeapp.generated.resources.ic_other_bill
 import e_bank_kmp.composeapp.generated.resources.ic_water_bills
 import e_bank_kmp.composeapp.generated.resources.internet_bills
 import e_bank_kmp.composeapp.generated.resources.next
@@ -72,7 +73,10 @@ import me.ibrahim.ebank.kmp.presentation.decompose.pay_bills.PayBillsComponent
 import me.ibrahim.ebank.kmp.utils.StrokeGrey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_Blue
 import me.ibrahim.ebank.kmp.utils.ThemeColor_DarkGrey
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Green
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Grey
 import me.ibrahim.ebank.kmp.utils.ThemeColor_LightGrey
+import me.ibrahim.ebank.kmp.utils.ThemeColor_Red
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -150,24 +154,28 @@ fun PayBillsUI(component: PayBillsComponent) {
             BillItem(
                 label = stringResource(Res.string.internet_bills),
                 icon = Res.drawable.ic_internet_bill,
+                iconTintColor = Color.ThemeColor_Green,
                 isSelected = selectedBill == BillType.INTERNET,
                 onBillSelected = { selectedBill = BillType.INTERNET }
             )
             BillItem(
                 label = stringResource(Res.string.electricity_bills),
                 icon = Res.drawable.ic_electricity_bill,
+                iconTintColor = Color.ThemeColor_Red,
                 isSelected = selectedBill == BillType.ELECTRICITY,
                 onBillSelected = { selectedBill = BillType.ELECTRICITY }
             )
             BillItem(
                 label = stringResource(Res.string.water_bills),
                 icon = Res.drawable.ic_water_bills,
+                iconTintColor = Color.ThemeColor_Blue,
                 isSelected = selectedBill == BillType.WATER,
                 onBillSelected = { selectedBill = BillType.WATER }
             )
             BillItem(
                 label = stringResource(Res.string.other_bills),
-                icon = Res.drawable.ic_internet_bill,
+                icon = Res.drawable.ic_other_bill,
+                iconTintColor = Color.ThemeColor_Grey,
                 isSelected = selectedBill == BillType.OTHER,
                 onBillSelected = { selectedBill = BillType.OTHER }
             )
@@ -187,8 +195,8 @@ fun PayBillsUI(component: PayBillsComponent) {
                     .padding(horizontal = 16.dp)
             ) {
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = companyName,
+                    onValueChange = { companyName = it },
                     placeholder = { Text(stringResource(Res.string.company_name)) },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -203,8 +211,8 @@ fun PayBillsUI(component: PayBillsComponent) {
                 )
 
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = referenceNumber,
+                    onValueChange = { referenceNumber = it },
                     placeholder = { Text(stringResource(Res.string.reference_number)) },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -219,8 +227,10 @@ fun PayBillsUI(component: PayBillsComponent) {
                 )
 
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = password,
+                    onValueChange = {
+                        password = it
+                    },
                     placeholder = { Text(stringResource(Res.string.password)) },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -253,59 +263,6 @@ fun PayBillsUI(component: PayBillsComponent) {
                     contentColor = Color.White
                 )
             }
-        }
-    }
-}
-
-@Composable
-fun BillItem(
-    label: String,
-    icon: DrawableResource,
-    isSelected: Boolean,
-    onBillSelected: () -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 0.dp, horizontal = 16.dp)
-            .shadow(elevation = 15.dp, spotColor = Color.ThemeColor_LightGrey.copy(alpha = 0.3f))
-            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
-            .clickable { onBillSelected() },
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 4.dp, vertical = 4.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            Image(
-                painter = painterResource(icon),
-                contentDescription = label,
-                modifier = Modifier.size(30.dp)
-            )
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Text(
-                text = label,
-                modifier = Modifier.weight(1f),
-                style = TextStyle(
-                    textAlign = TextAlign.Start,
-                    color = Color.ThemeColor_DarkGrey,
-                    fontSize = 16.sp
-                )
-            )
-
-            RadioButton(
-                selected = isSelected,
-                onClick = onBillSelected,
-                colors = RadioButtonDefaults.colors(
-                    selectedColor = MaterialTheme.colorScheme.primary,
-                    unselectedColor = MaterialTheme.colorScheme.outline
-                )
-            )
         }
     }
 }
