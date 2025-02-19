@@ -31,6 +31,8 @@ import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.TransferSucce
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.TransferSuccessComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponentImpl
+import me.ibrahim.ebank.kmp.presentation.decompose.pay_bills.PayBillsComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.pay_bills.PayBillsComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.splash.SplashComponent
@@ -91,7 +93,13 @@ class EBankRootImpl(
                     config.recipientInfo
                 )
             )
+
+            MainNavigationConfig.PayBills -> EBankRoot.MainDestinationChild.PayBills(component = buildPayBillsComponent())
         }
+    }
+
+    private fun buildPayBillsComponent(): PayBillsComponent {
+        return PayBillsComponentImpl(onBack = { navigation.pop() }, onNext = {})
     }
 
     private fun buildSplashComponent(): SplashComponent {
@@ -131,7 +139,7 @@ class EBankRootImpl(
                 is HomePageAction.OnQuickActionClick -> {
                     when (action.type) {
                         QuickAction.MoneyTransfer -> navigation.push(MainNavigationConfig.MoneyTransfer(action.card))
-                        QuickAction.PayBill -> {}
+                        QuickAction.PayBill -> navigation.push(MainNavigationConfig.PayBills)
                         QuickAction.BankToBank -> {}
                     }
                 }
@@ -182,5 +190,6 @@ class EBankRootImpl(
         data class TransferPreview(val card: Card, val recipientInfo: RecipientInfo, val amount: Double) : MainNavigationConfig()
         data class TransferConfirmation(val card: Card, val recipientInfo: RecipientInfo, val amount: Double) : MainNavigationConfig()
         data class TransferSuccess(val card: Card, val recipientInfo: RecipientInfo, val amount: Double) : MainNavigationConfig()
+        data object PayBills : MainNavigationConfig()
     }
 }
