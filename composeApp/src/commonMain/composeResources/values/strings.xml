@@ -64,4 +64,14 @@
     <string name="transfer_success_message">Your money has been tranfered successfuly</string>
     <string name="send_money">Send Money</string>
     <string name="view_receipt">View Receipt</string>
+    <string name="your_bills">Your Bills</string>
+    <string name="internet_bills">Internet Bill</string>
+    <string name="electricity_bills">Electricity Bill</string>
+    <string name="water_bills">Water Bill</string>
+    <string name="other_bills">Other</string>
+    <string name="fill_details">Fill Details</string>
+    <string name="company_name">Company Name</string>
+    <string name="next">Next</string>
+    <string name="reference_number">Reference Number</string>
+    <string name="pay_bill_confirmation_message">Please make sure you want to pay %1$s</string>
 </resources>

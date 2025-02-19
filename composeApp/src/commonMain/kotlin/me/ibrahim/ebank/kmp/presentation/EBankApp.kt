@@ -14,6 +14,7 @@ import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.TransferConfirmation
 import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.TransferPreviewUI
 import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.TransferSuccessUI
 import me.ibrahim.ebank.kmp.presentation.ui.onboarding.OnBoardingPage
+import me.ibrahim.ebank.kmp.presentation.ui.pay_bills.PayBillsUI
 import me.ibrahim.ebank.kmp.presentation.ui.signup.SignupPage
 import me.ibrahim.ebank.kmp.presentation.ui.splash.SplashPage
 
@@ -36,6 +37,7 @@ fun EBankApp(root: EBankRoot) {
                 is EBankRoot.MainDestinationChild.TransferPreview -> TransferPreviewUI(child.component)
                 is EBankRoot.MainDestinationChild.TransferConfirmation -> TransferConfirmationUI(child.component)
                 is EBankRoot.MainDestinationChild.TransferSuccess -> TransferSuccessUI(child.component)
+                is EBankRoot.MainDestinationChild.PayBills -> PayBillsUI(child.component)
             }
         }
     }
