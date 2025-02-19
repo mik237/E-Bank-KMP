@@ -15,6 +15,8 @@ import kotlinx.serialization.Serializable
 import me.ibrahim.ebank.kmp.domain.constants.QuickAction
 import me.ibrahim.ebank.kmp.domain.models.Card
 import me.ibrahim.ebank.kmp.domain.models.RecipientInfo
+import me.ibrahim.ebank.kmp.presentation.decompose.bank_transfer.BankTransferComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.bank_transfer.BankTransferComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.card_settings.CardSettingsComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.card_settings.CardSettingsComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponent
@@ -95,12 +97,10 @@ class EBankRootImpl(
             )
 
             MainNavigationConfig.PayBills -> EBankRoot.MainDestinationChild.PayBills(component = buildPayBillsComponent())
+            MainNavigationConfig.BankTransfer -> EBankRoot.MainDestinationChild.BankTransfer(component = buildBankTransferComponent())
         }
     }
 
-    private fun buildPayBillsComponent(): PayBillsComponent {
-        return PayBillsComponentImpl(onBack = { navigation.pop() }, onNext = {})
-    }
 
     private fun buildSplashComponent(): SplashComponent {
         return SplashComponentImpl(splashFinished = { onBoarded ->
@@ -140,7 +140,7 @@ class EBankRootImpl(
                     when (action.type) {
                         QuickAction.MoneyTransfer -> navigation.push(MainNavigationConfig.MoneyTransfer(action.card))
                         QuickAction.PayBill -> navigation.push(MainNavigationConfig.PayBills)
-                        QuickAction.BankToBank -> {}
+                        QuickAction.BankToBank -> navigation.push(MainNavigationConfig.BankTransfer)
                     }
                 }
             }
@@ -177,6 +177,14 @@ class EBankRootImpl(
             onBack = { navigation.pop() })
     }
 
+    private fun buildBankTransferComponent(): BankTransferComponent {
+        return BankTransferComponentImpl(onBack = { navigation.pop() })
+    }
+
+    private fun buildPayBillsComponent(): PayBillsComponent {
+        return PayBillsComponentImpl(onBack = { navigation.pop() }, onNext = {})
+    }
+
     @Serializable
     sealed class MainNavigationConfig {
         @Serializable
@@ -191,5 +199,6 @@ class EBankRootImpl(
         data class TransferConfirmation(val card: Card, val recipientInfo: RecipientInfo, val amount: Double) : MainNavigationConfig()
         data class TransferSuccess(val card: Card, val recipientInfo: RecipientInfo, val amount: Double) : MainNavigationConfig()
         data object PayBills : MainNavigationConfig()
+        data object BankTransfer : MainNavigationConfig()
     }
 }

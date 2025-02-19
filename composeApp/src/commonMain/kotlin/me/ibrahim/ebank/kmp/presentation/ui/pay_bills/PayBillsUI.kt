@@ -86,7 +86,7 @@ fun PayBillsUI(component: PayBillsComponent) {
 
     val state by component.state.subscribeAsState()
 
-    var selectedBill by remember { mutableStateOf<BillType>(BillType.INTERNET) }
+    var selectedBill by remember { mutableStateOf(BillType.INTERNET) }
     var companyName by remember { mutableStateOf("") }
     var referenceNumber by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
