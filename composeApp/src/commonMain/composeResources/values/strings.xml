@@ -74,4 +74,11 @@
     <string name="next">Next</string>
     <string name="reference_number">Reference Number</string>
     <string name="pay_bill_confirmation_message">Please make sure you want to pay %1$s</string>
+    <string name="bank_transfer">Bank Transfer</string>
+    <string name="transfer_to_bank">Transfer to Bank</string>
+    <string name="search_bank">Search or select recipients bank</string>
+    <string name="byline_bank">Byline Bank</string>
+    <string name="shamrock_bank">Shamrock Bank</string>
+    <string name="m_and_t_bank">M&amp;T Bank</string>
+    <string name="truist_financial">Truist Financial</string>
 </resources>
