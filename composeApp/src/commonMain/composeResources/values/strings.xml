@@ -59,6 +59,9 @@
     <string name="transfer_fee">Transfer Fee</string>
     <string name="total">Total</string>
     <string name="are_you_sure">Are you sure?</string>
+    <string name="transfer_successful">Transfer Successful!</string>
     <string name="transfer_confirmation_message">We care about your privacy. please make sure that you want to transfer money.</string>
+    <string name="transfer_success_message">Your money has been tranfered successfuly</string>
     <string name="send_money">Send Money</string>
+    <string name="view_receipt">View Receipt</string>
 </resources>
