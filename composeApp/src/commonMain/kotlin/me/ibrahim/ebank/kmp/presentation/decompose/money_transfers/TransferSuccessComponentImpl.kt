@@ -4,24 +4,19 @@ import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import me.ibrahim.ebank.kmp.domain.models.Card
 import me.ibrahim.ebank.kmp.domain.models.RecipientInfo
-import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.actions.TransferConfirmationUiAction
+import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.actions.TransferSuccessUiAction
 import me.ibrahim.ebank.kmp.presentation.ui.money_transfers.states.TransferPreviewState
 
-class ConfirmTransferComponentImpl(
-    card: Card, amount: Double, recipientInfo: RecipientInfo,
-    val onBackClick: () -> Unit,
-    val onContinueClick: () -> Unit
-) : ConfirmTransferComponent {
+class TransferSuccessComponentImpl(card: Card, amount: Double, recipientInfo: RecipientInfo, val onBack: () -> Unit) : TransferSuccessComponent {
 
     private val _state = MutableValue(TransferPreviewState(card, recipientInfo, amount))
     override val state: Value<TransferPreviewState>
         get() = _state
 
-    override fun onAction(action: TransferConfirmationUiAction) {
-
+    override fun onAction(action: TransferSuccessUiAction) {
         when (action) {
-            TransferConfirmationUiAction.OnBackClick -> onBackClick()
-            TransferConfirmationUiAction.OnContinueClick -> onContinueClick()
+            TransferSuccessUiAction.OnBackClick -> onBack()
+            TransferSuccessUiAction.OnViewReceipt -> {}
         }
     }
 }

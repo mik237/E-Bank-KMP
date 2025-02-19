@@ -8,6 +8,7 @@ import me.ibrahim.ebank.kmp.presentation.decompose.login.LoginComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.ConfirmTransferComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.MoneyTransferComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.TransferPreviewComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.TransferSuccessComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.splash.SplashComponent
@@ -26,5 +27,6 @@ interface EBankRoot {
         data class MoneyTransfer(val component: MoneyTransferComponent) : MainDestinationChild()
         data class TransferPreview(val component: TransferPreviewComponent) : MainDestinationChild()
         data class TransferConfirmation(val component: ConfirmTransferComponent) : MainDestinationChild()
+        data class TransferSuccess(val component: TransferSuccessComponent) : MainDestinationChild()
     }
 }

@@ -27,6 +27,8 @@ import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.MoneyTransfer
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.MoneyTransferComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.TransferPreviewComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.TransferPreviewComponentImpl
+import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.TransferSuccessComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.money_transfers.TransferSuccessComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.onboarding.OnBoardingComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.signup.SignupComponent
@@ -45,7 +47,7 @@ class EBankRootImpl(
         source = navigation,
         serializer = MainNavigationConfig.serializer(),
         handleBackButton = true,
-        initialConfiguration = MainNavigationConfig.Splash,
+        initialConfiguration = MainNavigationConfig.Home,
         childFactory = ::createChild
     )
 
@@ -81,13 +83,15 @@ class EBankRootImpl(
                     config.recipientInfo
                 )
             )
-        }
-    }
 
-    private fun buildTransferConfirmationComponent(card: Card, amount: Double, recipientInfo: RecipientInfo): ConfirmTransferComponent {
-        return ConfirmTransferComponentImpl(card = card, amount = amount, recipientInfo = recipientInfo, onBackClick = {
-            navigation.pop()
-        })
+            is MainNavigationConfig.TransferSuccess -> EBankRoot.MainDestinationChild.TransferSuccess(
+                component = buildTransferSuccessComponent(
+                    config.card,
+                    config.amount,
+                    config.recipientInfo
+                )
+            )
+        }
     }
 
     private fun buildSplashComponent(): SplashComponent {
@@ -153,6 +157,18 @@ class EBankRootImpl(
             onContinueClick = { navigation.replaceCurrent(MainNavigationConfig.TransferConfirmation(card, recipientInfo, amount)) })
     }
 
+    private fun buildTransferConfirmationComponent(card: Card, amount: Double, recipientInfo: RecipientInfo): ConfirmTransferComponent {
+        return ConfirmTransferComponentImpl(card = card, amount = amount, recipientInfo = recipientInfo,
+            onBackClick = { navigation.pop() }, onContinueClick = {
+                navigation.replaceCurrent(MainNavigationConfig.TransferSuccess(card, recipientInfo, amount))
+            })
+    }
+
+    private fun buildTransferSuccessComponent(card: Card, amount: Double, recipientInfo: RecipientInfo): TransferSuccessComponent {
+        return TransferSuccessComponentImpl(card = card, amount = amount, recipientInfo = recipientInfo,
+            onBack = { navigation.pop() })
+    }
+
     @Serializable
     sealed class MainNavigationConfig {
         @Serializable
@@ -165,5 +181,6 @@ class EBankRootImpl(
         data class MoneyTransfer(val card: Card) : MainNavigationConfig()
         data class TransferPreview(val card: Card, val recipientInfo: RecipientInfo, val amount: Double) : MainNavigationConfig()
         data class TransferConfirmation(val card: Card, val recipientInfo: RecipientInfo, val amount: Double) : MainNavigationConfig()
+        data class TransferSuccess(val card: Card, val recipientInfo: RecipientInfo, val amount: Double) : MainNavigationConfig()
     }
 }

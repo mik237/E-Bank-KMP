@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -20,6 +21,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.ibrahim.ebank.kmp.domain.constants.QuickAction
@@ -86,9 +88,10 @@ fun QuickActionsUI(modifier: Modifier = Modifier, onClick: (QuickAction) -> Unit
                             style = TextStyle(
                                 color = Color.ThemeColor_DarkGrey,
                                 fontSize = 16.sp,
-                                fontWeight = FontWeight.SemiBold
+                                fontWeight = FontWeight.SemiBold,
+                                textAlign = TextAlign.Center
                             ),
-                            modifier = Modifier
+                            modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }
