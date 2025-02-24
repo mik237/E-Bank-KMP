@@ -47,7 +47,6 @@ fun HomePage(component: HomeComponent) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .navigationBarsPadding()
                     .verticalScroll(state = rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {

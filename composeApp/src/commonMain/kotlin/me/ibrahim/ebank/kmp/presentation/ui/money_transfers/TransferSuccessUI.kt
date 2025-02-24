@@ -93,7 +93,6 @@ fun TransferSuccessUI(component: TransferSuccessComponent) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .navigationBarsPadding()
                     .verticalScroll(state = rememberScrollState())
                     .imePadding(),
                 horizontalAlignment = Alignment.CenterHorizontally,

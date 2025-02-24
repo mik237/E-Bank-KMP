@@ -82,7 +82,6 @@ fun CardSettingsUI(component: CardSettingsComponent) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .navigationBarsPadding()
                     .verticalScroll(state = rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(10.dp)

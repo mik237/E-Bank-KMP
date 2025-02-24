@@ -17,6 +17,8 @@ import me.ibrahim.ebank.kmp.domain.models.Card
 import me.ibrahim.ebank.kmp.domain.models.RecipientInfo
 import me.ibrahim.ebank.kmp.presentation.decompose.bank_transfer.BankTransferComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.bank_transfer.BankTransferComponentImpl
+import me.ibrahim.ebank.kmp.presentation.decompose.bottom_navigation.BottomNavComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.bottom_navigation.BottomNavComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.card_settings.CardSettingsComponent
 import me.ibrahim.ebank.kmp.presentation.decompose.card_settings.CardSettingsComponentImpl
 import me.ibrahim.ebank.kmp.presentation.decompose.home.HomeComponent
@@ -98,7 +100,12 @@ class EBankRootImpl(
 
             MainNavigationConfig.PayBills -> EBankRoot.MainDestinationChild.PayBills(component = buildPayBillsComponent())
             MainNavigationConfig.BankTransfer -> EBankRoot.MainDestinationChild.BankTransfer(component = buildBankTransferComponent())
+            MainNavigationConfig.BottomNavBar -> EBankRoot.MainDestinationChild.BottomNavBar(component = buildBottomNavComponent(context))
         }
+    }
+
+    private fun buildBottomNavComponent(context: ComponentContext): BottomNavComponent {
+        return BottomNavComponentImpl(context)
     }
 
 
@@ -193,6 +200,7 @@ class EBankRootImpl(
         data object Login : MainNavigationConfig()
         data object Signup : MainNavigationConfig()
         data object Home : MainNavigationConfig()
+        data object BottomNavBar : MainNavigationConfig()
         data class CardSettings(val card: Card) : MainNavigationConfig()
         data class MoneyTransfer(val card: Card) : MainNavigationConfig()
         data class TransferPreview(val card: Card, val recipientInfo: RecipientInfo, val amount: Double) : MainNavigationConfig()

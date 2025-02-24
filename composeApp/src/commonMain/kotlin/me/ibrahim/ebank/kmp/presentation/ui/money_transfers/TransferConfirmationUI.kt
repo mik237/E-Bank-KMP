@@ -73,7 +73,6 @@ fun TransferConfirmationUI(component: ConfirmTransferComponent) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .navigationBarsPadding()
                 .verticalScroll(state = rememberScrollState())
                 .imePadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
