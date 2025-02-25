@@ -54,10 +54,13 @@ fun DashboardScreen(component: DashboardComponent) {
 
                     DashboardComponent.BottomNavChild.Scanner -> {
                         Box(
-                            modifier = Modifier.fillMaxSize().background(color = Color.Blue),
+                            modifier = Modifier.fillMaxSize().background(color = Color.Gray),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text("Scanner")
+                            Text(
+                                "Scanning Feature coming soon..",
+                                style = MaterialTheme.typography.titleLarge
+                            )
                         }
                     }
 
@@ -66,7 +69,8 @@ fun DashboardScreen(component: DashboardComponent) {
                             modifier = Modifier.fillMaxSize().background(color = Color.Green),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text("Profile")
+                            Text("Profile coming soon..",
+                                style = MaterialTheme.typography.titleLarge)
                         }
 
                     }
@@ -76,7 +80,8 @@ fun DashboardScreen(component: DashboardComponent) {
                             modifier = Modifier.fillMaxSize().background(color = Color.ThemeColor_Red),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text("Locations")
+                            Text("Locations coming soon..",
+                                style = MaterialTheme.typography.titleLarge)
                         }
                     }
 
@@ -85,7 +90,8 @@ fun DashboardScreen(component: DashboardComponent) {
                             modifier = Modifier.fillMaxSize().background(color = Color.Yellow),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text("Analytics")
+                            Text("Analytics coming soon..",
+                                style = MaterialTheme.typography.titleLarge)
                         }
                     }
 
