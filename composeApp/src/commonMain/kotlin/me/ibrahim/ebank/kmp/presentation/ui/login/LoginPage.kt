@@ -129,7 +129,9 @@ fun LoginPage(component: LoginComponent) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(55.dp),
-                    onClick = {},
+                    onClick = {
+                        component.onAction(LoginUiAction.OnLoginClicked)
+                    },
                     shape = RoundedCornerShape(12.dp),
                     text = stringResource(Res.string.login),
                     textStyle = TextStyle(

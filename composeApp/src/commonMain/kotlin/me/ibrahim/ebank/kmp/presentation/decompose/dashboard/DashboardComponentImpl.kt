@@ -1,7 +1,6 @@
-package me.ibrahim.ebank.kmp.presentation.decompose.bottom_navigation
+package me.ibrahim.ebank.kmp.presentation.decompose.dashboard
 
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.DelicateDecomposeApi
 import com.arkivanov.decompose.router.pages.ChildPages
 import com.arkivanov.decompose.router.pages.Pages
 import com.arkivanov.decompose.router.pages.PagesNavigation
@@ -12,17 +11,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import me.ibrahim.ebank.kmp.presentation.decompose.bottom_navigation.BottomNavComponent.BottomNavChild
-import me.ibrahim.ebank.kmp.presentation.decompose.root.EBankRoot
-import me.ibrahim.ebank.kmp.presentation.decompose.root.EBankRootImpl
+import me.ibrahim.ebank.kmp.presentation.decompose.bottom_navigation.home_tab.HomeTabComponent
+import me.ibrahim.ebank.kmp.presentation.decompose.bottom_navigation.home_tab.HomeTabComponentImpl
 
-class BottomNavComponentImpl(componentContext: ComponentContext) :
-    BottomNavComponent,
-    ComponentContext by componentContext {
+class DashboardComponentImpl(componentContext: ComponentContext) : DashboardComponent, ComponentContext by componentContext {
+
     private val mainDispatcher = CoroutineScope(Dispatchers.Main)
 
     override val configs: List<BottomNavConfig> = listOf(
-        BottomNavConfig.HomeRoot,
+        BottomNavConfig.Home,
         BottomNavConfig.Locations,
         BottomNavConfig.Scanner,
         BottomNavConfig.Analytics,
@@ -40,36 +37,35 @@ class BottomNavComponentImpl(componentContext: ComponentContext) :
         childFactory = ::createChildPageFactor
     )
 
-    private fun createChildPageFactor(config: BottomNavConfig, context: ComponentContext): BottomNavChild {
+    private fun createChildPageFactor(config: BottomNavConfig, context: ComponentContext): DashboardComponent.BottomNavChild {
         return when (config) {
-            BottomNavConfig.Analytics -> BottomNavChild.Analytics
-            BottomNavConfig.HomeRoot -> BottomNavChild.HomeRoot(component = buildHomeRootComponent(context))
-            BottomNavConfig.Locations -> BottomNavChild.Locations
-            BottomNavConfig.Profile -> BottomNavChild.Profile
-            BottomNavConfig.Scanner -> BottomNavChild.Scanner
+            BottomNavConfig.Analytics -> DashboardComponent.BottomNavChild.Analytics
+            BottomNavConfig.Home -> DashboardComponent.BottomNavChild.Home(component = buildHomeTabComponent(context))
+            BottomNavConfig.Locations -> DashboardComponent.BottomNavChild.Locations
+            BottomNavConfig.Profile -> DashboardComponent.BottomNavChild.Profile
+            BottomNavConfig.Scanner -> DashboardComponent.BottomNavChild.Scanner
         }
     }
 
-    private fun buildHomeRootComponent(context: ComponentContext): EBankRoot {
-        return EBankRootImpl(context)
+    private fun buildHomeTabComponent(context: ComponentContext): HomeTabComponent {
+        return HomeTabComponentImpl(componentContext = context)
     }
 
 
-    override val pages: Value<ChildPages<*, BottomNavChild>>
+    override val pages: Value<ChildPages<*, DashboardComponent.BottomNavChild>>
         get() = _pages
 
 
     override fun onNewPageSelected(index: Int) {
         mainDispatcher.launch {
             navigation.select(index)
-            println("CustomPager: index $index")
         }
     }
 
     @Serializable
     sealed interface BottomNavConfig {
         @Serializable
-        data object HomeRoot : BottomNavConfig
+        data object Home : BottomNavConfig
 
         @Serializable
         data object Locations : BottomNavConfig
@@ -83,5 +79,4 @@ class BottomNavComponentImpl(componentContext: ComponentContext) :
         @Serializable
         data object Profile : BottomNavConfig
     }
-
 }

@@ -9,7 +9,8 @@ import me.ibrahim.ebank.kmp.presentation.ui.login.LoginUiAction
 
 class LoginComponentImpl(
     componentContext: ComponentContext,
-    private val onSignupClicked: () -> Unit
+    private val onSignupClicked: () -> Unit,
+    private val onLoginClicked: (username: String, password: String) -> Unit
 ) : LoginComponent,
     ComponentContext by componentContext {
 
@@ -27,6 +28,7 @@ class LoginComponentImpl(
             }
 
             LoginUiAction.OnSignupClicked -> onSignupClicked()
+            LoginUiAction.OnLoginClicked -> onLoginClicked(state.value.username, state.value.password)
         }
     }
 }
