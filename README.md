@@ -2,6 +2,8 @@
 
 E-Bank-KMP is a **banking application** built using **Jetpack Compose Multiplatform (KMP)** for Android & iOS. It leverages the **Decompose framework** for navigation and state management, offering a seamless experience across platforms.
 
+<img src="screenshots/cover.jpg" width="80%"/>
+
 ## Features
 
 ### Dashboard:
