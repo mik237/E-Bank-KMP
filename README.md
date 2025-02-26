@@ -1,14 +1,50 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# E-Bank-KMP
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+E-Bank-KMP is a **banking application** built using **Jetpack Compose Multiplatform (KMP)** for Android & iOS. It leverages the **Decompose framework** for navigation and state management, offering a seamless experience across platforms.
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## Features
 
+### Dashboard:
+- **Account Balance Overview**
+  - Displays available balance and card details.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+- **Quick Actions**
+  - Money Transfer
+  - Bill Payment
+  - Bank-to-Bank Transfers
+
+- **Services**
+  - Mobile Recharge
+  - Charity Donations
+  - Loan Management
+  - Gift Services
+
+- **Scheduled Payments**
+  - Displays upcoming payments (e.g., Netflix subscription).
+
+- **Bottom Navigation Bar**
+  - Home
+  - Transactions
+  - User Profile
+  - Analytics
+  - More options
+
+## Tech Stack
+- **Kotlin Multiplatform** (KMP)
+- **Jetpack Compose Multiplatform** for UI
+- **Decompose Framework** for navigation and state management
+- **Material Design 3** for modern UI components
+
+## Getting Started
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/E-Bank-KMP.git
+   ```
+2. Open in **Android Studio** or **IntelliJ IDEA**.
+3. Run the project on an emulator or physical device.
+
+## Contributions
+Contributions are welcome! Feel free to open issues or submit pull requests to enhance the project.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
